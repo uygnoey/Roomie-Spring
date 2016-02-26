@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<!-- Index Page Navigation (No Login) -->
+	<header th:fragment="nologin">
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#!" th:text="#{nav.logo.text}" class="brand-logo"></a>
+			<a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul class="right hide-on-med-and-down" th:include="publicTempl/navMenu :: nologin">
+			</ul>
+			<ul class="side-nav" id="mobile-menu" th:include="publicTempl/navMenu :: nologin">
+			</ul>
+		</div>
+	</nav>
+	</header>
+</body>
+</html>
