@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+/* Navigation */
+nav {
+	color: #333;
+	background-color: #fff;
+}
+
+nav .brand-logo {
+	padding-left: 55px;
+	color: #333;
+}
+
+nav a {
+	color: #333;
+}
+
+nav .right {
+	padding-right: 55px;
+}
+
+nav ul a {
+	color: #333;
+}
+
+nav .side-nav li {
+	padding: 0;
+}
+
+/* Footer */
+footer.page-footer {
+	background-color: #555;
+}
