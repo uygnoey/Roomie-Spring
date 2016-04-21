@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<div class="center row" th:fragment="registerform">
+		<div class="col s12 m6 offset-m3 l6 offset-l3">
+			<div class="card">
+				<form th:action="@{/register/process}" id="signupForm" name="signupForm" method="post">
+					<div class="card-content">
+						<sapn class="card-title" th:text="#{register.card.title}"></sapn>
+						<div class="input-field">
+							<input type="text" name="username" id="username" class="validate" />
+							<label for="username" th:text="#{register.input.username}"></label>
+						</div>
+						<div class="input-field">
+							<input type="email" id="email" class="validate" name="email" />
+							<label for="email" data-error="wrong" data-success="right" th:text="#{register.input.email}"></label>
+						</div>
+						<div class="input-field">
+							<input type="password" name="password" id="password" class="validate" />
+							<label for="password" th:text="#{register.input.password}"></label>
+						</div>
+					</div>
+					<div class="card-action" th:inline="text">
+						<div class="inline-block">
+							<button type="button" id="signupBtn" class="btn waves-effect waves-light" name="action">
+								<i class="material-icons left">add</i>[[#{register.input.signup}]]
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" th:inline="javascript">
+		/*<![CDATA[*/
+			$(document).ready(function(){
+			    $('#signupBtn').click(function(){
+			    	
+					$.ajax({
+						type: 'post',
+						url: /*[[@{/register/process}]]*/,
+						dataTpye: 'json',
+						contentType : "application/json;charset=utf8",
+						data: JSON.stringify({"username" : $('#username').val(),
+							"email" : $('#email').val(),
+							"password" : $('#password').val()})
+					});
+				});
+			});
+		/*]]>*/
+		</script>
+	</div>
+</body>
+</html>

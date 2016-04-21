@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+	<!-- Login from -->
+	<div class="row center" th:fragment="loginform">
+		<div th:if="${param.error}">
+			<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+			Materialize.toast(/*[[#{login.error.message}]]*/, 4000)
+			/*]]>*/
+			</script>
+		</div>
+		<div th:if="${param.logout}">
+			<script type="text/javascript" th:inline="javascript">
+			/*<![CDATA[*/
+			Materialize.toast(/*[[#{login.logout.message}]]*/, 4000)
+			/*]]>*/
+			</script>
+		</div>
+		<div class="col s12 m6 offset-m3 l6 offset-l3">
+			<div class="card">
+				<form th:action="@{/login}" method="post">
+					<div class="card-content">
+						<span class="card-title" th:text="#{login.card.title}"></span>
+
+						<div class="input-field">
+							<input type="text" name="username" id="username" class="validate" />
+							<label for="username" th:text="#{login.input.username}"></label>
+						</div>
+						<div class="input-field">
+							<input type="password" name="password" id="password"
+								class="validate" /> <label for="password" data-error="wrong"
+								data-success="right" th:text="#{login.input.password}"></label>
+						</div>
+					</div>
+					<div class="card-action" th:inline="text">
+					<div class="inline-block">
+						<button class="btn waves-effect waves-light" type="submit"
+							name="action">
+							<i class="material-icons left">lock_open</i>[[#{login.input.submit}]]
+						</button><span>&nbsp;&nbsp;[[#{login.input.or}]]&nbsp;&nbsp;</span><a href="./register"><button class="btn waves-effect waves-light pink" type="button"
+							name="action">
+							<i class="material-icons left">add</i>[[#{login.input.signup}]]
+						</button></a>
+					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
