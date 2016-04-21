@@ -6,7 +6,7 @@
  * @author YeonGyu Yang
  * @since 2016. 2. 6.
  */
-package life.theroomie.configration;
+package com.faveroomies.configration;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Value;

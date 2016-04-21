@@ -6,7 +6,7 @@
  * @author YeonGyu Yang
  * @since 2016. 2. 6.
  */
-package life.theroomie.configration;
+package com.faveroomies.configration;
 
 import java.util.Locale;
 
@@ -55,4 +55,5 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
 	}
+	
 }
