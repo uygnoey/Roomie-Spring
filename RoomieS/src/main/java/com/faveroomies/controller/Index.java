@@ -6,9 +6,7 @@
  * @author YeonGyu Yang
  * @since 2016. 2. 15.
  */
-package life.theroomie.controller;
-
-import java.util.Locale;
+package com.faveroomies.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,14 +30,13 @@ public class Index {
 	@RequestMapping("/")
 	public String index(Model model) {
 
-		logger.info("Remote User locale is " + Locale.getDefault());
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
 		String page = "";
 		
 		if (principal instanceof UserDetails) {
 			logger.info(((UserDetails) principal).getUsername() + " login success.\nPage is index");
-			page = "indexlogin";
+			page = "indexlogined";
 		} else {
 			logger.info("Page is index");
 			page = "index";
@@ -47,5 +44,4 @@ public class Index {
 
 		return page;
 	}
-
 }
