@@ -6,7 +6,7 @@
  * @author YeonGyu Yang
  * @since 2016. 2. 6.
  */
-package life.theroomie.security;
+package com.faveroomies.security;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -16,13 +16,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @Since 2016. 2. 6.
  *
  */
-public class EncryptSth {
+public class Encrypt {
 
-	public String encrypt(String str) {
+	public String encrypt(String string) {
 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-		return passwordEncoder.encode(str);
+		return passwordEncoder.encode(string);
 
 	}
 }
