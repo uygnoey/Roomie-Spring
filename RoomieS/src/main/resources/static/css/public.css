@@ -1,43 +1,22 @@
 @CHARSET "UTF-8";
 
-body {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
-}
-
-main {
-	flex: 1 0 auto;
-}
-
-/* Navigation */
-nav {
-	color: #333;
-	background-color: #fff;
-}
-
-nav .brand-logo {
-	padding-left: 55px;
-	color: #333;
-}
-
-nav a {
-	color: #333;
-}
-
-nav .right {
-	padding-right: 55px;
-}
-
-nav ul a {
-	color: #333;
-}
-
-nav .side-nav li {
-	padding: 0;
-}
-
 /* Footer */
-footer.page-footer {
-	background-color: #555;
+footer.page-footer .footer-copyright {
+	background-color: rgba(51, 51, 51, 0.15);
+}
+
+.inline-block {
+	display: inline-block;
+}
+
+@media all and (min-width:768px) {
+	nav .brand-logo {
+		padding-left: 55px;
+	}
+	nav .right {
+		padding-right: 55px;
+	}
+	nav .side-nav li {
+		padding: 0;
+	}
 }
