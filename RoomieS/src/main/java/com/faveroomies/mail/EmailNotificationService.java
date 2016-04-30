@@ -8,6 +8,9 @@
  */
 package com.faveroomies.mail;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
@@ -66,15 +69,15 @@ public class EmailNotificationService {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
 				message.setTo(roomie.getmEmail());
-				message.setFrom("no-reply@faveroomie.com", "Fave Roomies");
+				message.setFrom("no-reply@faveroomies.com", "Fave Roomies");
+				
+				Map<String, Object> model = new HashMap<String, Object>();
 
-				ModelMap modelMap = new ModelMap();
-
-				modelMap.put("roomie", roomie);
-				modelMap.put("regiCode", regiCode);
+				model.put("roomie", roomie);
+				model.put("regiCode", regiCode);
 
 				String mailText = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "regiConfirmation.vm",
-						"utf8", modelMap);
+						"utf8", model);
 
 				message.setText(mailText, true);
 			}
