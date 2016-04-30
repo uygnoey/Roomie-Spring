@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--Import CSS-->
+	<link type="text/css" rel="stylesheet" href="regConfirmation.css" />
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet"
+		href="materialize/css/materialize.min.css" media="screen,projection" />
+</head>
+<body>
+	<div class="container" id="container">
+		<header th:fragment="nologin">
+			<nav>
+				<div class="nav-wrapper  grey-text text-darken-3">
+					<ul class="right hide-on-med-and-down white">
+						<li>Hi ${roomie.mUser}</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+		<div class="col s12 m8">
+			<div class="card">
+					<div class="card-content">
+						You created an account with the email address: ${roomie.mEmail}, and confirm code: ${regiCode}<br/>
+						Click "Confirm" to verify the email address and unlock your full account.
+					</div>
+					<div class="card-action">
+					<div class="inline-block">
+						<a href="http://faveroomies.com/regconfirm?code=${regiCode}"><button class="btn waves-effect waves-light pink" type="button"
+							name="action">
+							<i class="material-icons left">done</i>Confirm
+						</button></a>
+					</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- Index Page Footer (No Login) -->
+		<footer class="page-footer grey darken-3" th:fragment="nologin">
+			<div class="container">
+				<div class="row">
+					<div class="col l6 s12">
+						<h5 class="white-text">Fave Roomies</h5>
+						<p class="grey-text text-lighten-4">Email: <a href="mailto:ygyang0302@protonmail.com">ygyang0302@protonmail.com</a></p>
+					</div>
+				</div>
+			</div>
+			<div class="footer-copyright">
+				<div class="container">© 2016 Copyright Yeongyu Yang. All right reserved.</div>
+			</div>
+		</footer>
+	</div>
+</body>
+</html>
