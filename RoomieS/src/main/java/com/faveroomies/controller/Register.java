@@ -21,7 +21,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.faveroomies.DTO.Roomie;
+import com.faveroomies.DTO.RoomieImpl;
+import com.faveroomies.mail.EmailNotificationService;
 import com.faveroomies.mapper.RoomieMapper;
 import com.faveroomies.security.Encrypt;
 
@@ -39,6 +40,7 @@ public class Register {
 	private RoomieMapper roomieMapper;
 	
 	private Encrypt encrypt = new Encrypt();
+	private EmailNotificationService emailNotification = new EmailNotificationService();
 
 	private Logger logger = LoggerFactory.getLogger(Register.class);
 
@@ -72,7 +74,7 @@ public class Register {
 	 * @return
 	 */
 	@RequestMapping(value = "/register/process")
-	public String regProcess(@RequestBody Roomie roomie, ModelMap modelMap, HttpServletRequest req) {
+	public String regProcess(@RequestBody RoomieImpl roomie, ModelMap modelMap, HttpServletRequest req) {
 
 		logger.info("Register Process");
 		logger.debug(roomie.getmUser() + " // " + roomie.getmEmail() + " // " + roomie.getmPassword());
@@ -87,7 +89,7 @@ public class Register {
 			
 			session.setAttribute("regiCode", regiCode);
 			
-			
+			emailNotification.register(roomie, regiCode);
 			
 			modelMap.addAttribute("userinfo", roomie);
 			page = "signupssuccess";

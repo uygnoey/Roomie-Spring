@@ -1,114 +1,74 @@
 /**
  * <p>Project name is RoomieS<br>
  * Package name is life.theroomie.DTO<br>
- * File name is HomeRate.java<br>
+ * File name is HomeRateInterface.java<br>
  *
  * @author YeonGyu Yang
- * @since Mar 16, 2016
+ * @since Apr 2, 2016
  */
 package com.faveroomies.DTO;
 
 /**
- * <p>
- * HomeRate DTO<br>
- * hrNum INT NOT NULL AUTO_INCREMENT, -- 집평가번호<br>
- * hNum INT NOT NULL, -- 집번호<br>
- * cNum INT NOT NULL, -- 계약번호<br>
- * hrRate INT NOT NULL, -- 집 평가<br>
- * hrReason VARCHAR(300) NOT NULL -- 평가 사유<br>
  * 
  * @author YeonGyu Yang
- * @Since Mar 16, 2016
+ * @Since Apr 2, 2016
  *
  */
-public class HomeRate implements HomeRateInterface {
-
-	private int hrNum, hNum, cNum, hrRate;
-	private String hrReason;
+public interface HomeRate {
 
 	/**
 	 * @return the hrNum
 	 */
-	@Override
-	public int getHrNum() {
-		return hrNum;
-	}
+	public int getHrNum();
 
 	/**
 	 * @param hrNum
 	 *            the hrNum to set
 	 */
-	@Override
-	public void setHrNum(int hrNum) {
-		this.hrNum = hrNum;
-	}
+	public void setHrNum(int hrNum);
 
 	/**
 	 * @return the hNum
 	 */
-	@Override
-	public int gethNum() {
-		return hNum;
-	}
+	public int gethNum();
 
 	/**
 	 * @param hNum
 	 *            the hNum to set
 	 */
-	@Override
-	public void sethNum(int hNum) {
-		this.hNum = hNum;
-	}
+	public void sethNum(int hNum);
 
 	/**
 	 * @return the cNum
 	 */
-	@Override
-	public int getcNum() {
-		return cNum;
-	}
+	public int getcNum();
 
 	/**
 	 * @param cNum
 	 *            the cNum to set
 	 */
-	@Override
-	public void setcNum(int cNum) {
-		this.cNum = cNum;
-	}
+	public void setcNum(int cNum);
 
 	/**
 	 * @return the hrRate
 	 */
-	@Override
-	public int getHrRate() {
-		return hrRate;
-	}
+	public int getHrRate();
 
 	/**
 	 * @param hrRate
 	 *            the hrRate to set
 	 */
-	@Override
-	public void setHrRate(int hrRate) {
-		this.hrRate = hrRate;
-	}
+	public void setHrRate(int hrRate);
 
 	/**
 	 * @return the hrReason
 	 */
-	@Override
-	public String getHrReason() {
-		return hrReason;
-	}
+	public String getHrReason();
 
 	/**
 	 * @param hrReason
 	 *            the hrReason to set
 	 */
-	@Override
-	public void setHrReason(String hrReason) {
-		this.hrReason = hrReason;
-	}
+	public void setHrReason(String hrReason);
 
 }

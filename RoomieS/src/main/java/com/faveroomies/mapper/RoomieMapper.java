@@ -14,7 +14,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-import com.faveroomies.DTO.Member;
+import com.faveroomies.DTO.MemberImpl;
 
 /**
  * 
@@ -28,15 +28,15 @@ public interface RoomieMapper {
 	int insertRoomie(@Param("user") String user, @Param("email") String email, @Param("password") String password);
 
 	@Select("select * from member")
-	ArrayList<Member> selectAll();
+	ArrayList<MemberImpl> selectAll();
 
 	@Select("select * from member where mNum = #{num}")
-	ArrayList<Member> selectNum(@Param("num") int num);
+	ArrayList<MemberImpl> selectNum(@Param("num") int num);
 
 	@Select("select * from member where mName = #{name}")
-	ArrayList<Member> selectName(@Param("name") String name);
+	ArrayList<MemberImpl> selectName(@Param("name") String name);
 
 	@Select("select * from member where mEmail = #{email}")
-	ArrayList<Member> selectEmail(@Param("email") String email);
+	ArrayList<MemberImpl> selectEmail(@Param("email") String email);
 
 }

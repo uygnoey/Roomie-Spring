@@ -1,249 +1,118 @@
 /**
  * <p>Project name is RoomieS<br>
  * Package name is life.theroomie.DTO<br>
- * File name is Home.java<br>
+ * File name is HomeInterface.java<br>
  *
  * @author YeonGyu Yang
- * @since Mar 16, 2016
+ * @since Apr 2, 2016
  */
 package com.faveroomies.DTO;
 
 /**
- * <p>
- * Home DTO<br>
- * hNum INT NOT NULL AUTO_INCREMENT, -- 집번호<br>
- * hName VARCHAR(30) NOT NULL, -- 집이름<br>
- * mNum INT NOT NULL, -- 주인<br>
- * hRoom INT NOT NULL, -- 방 수<br>
- * hAddrSt1 VARCHAR(300) NOT NULL, -- 주소1<br>
- * hAddrSt2 VARCHAR(300) NULL, -- 주소2<br>
- * hCity VARCHAR(100) NOT NULL, -- 도시<br>
- * hState VARCHAR(100) NOT NULL, -- 주/도<br>
- * hZipcode VARCHAR(10) NOT NULL -- 우편번호<br>
  * 
  * @author YeonGyu Yang
- * @Since Mar 16, 2016
+ * @Since Apr 2, 2016
  *
  */
-public class Home implements HomeInterface {
-
-	private int hNum, mNum, hRoom;
-	private String hName, hAddrSt1, hAddrSt2, hCity, hState, hZipcode;
+public interface Home {
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethNum()
+	 * @return the hNum
 	 */
-	@Override
-	public int gethNum() {
-		return hNum;
-	}
+	public int gethNum();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hNum
-	 * @see com.faveroomies.DTO.HomeInterface#sethNum(int)
+	 *            the hNum to set
 	 */
-	@Override
-	public void sethNum(int hNum) {
-		this.hNum = hNum;
-	}
+	public void sethNum(int hNum);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#getmNum()
+	 * @return the mNum
 	 */
-	@Override
-	public int getmNum() {
-		return mNum;
-	}
+	public int getmNum();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param mNum
-	 * @see com.faveroomies.DTO.HomeInterface#setmNum(int)
+	 *            the mNum to set
 	 */
-	@Override
-	public void setmNum(int mNum) {
-		this.mNum = mNum;
-	}
+	public void setmNum(int mNum);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethRoom()
+	 * @return the hRoom
 	 */
-	@Override
-	public int gethRoom() {
-		return hRoom;
-	}
+	public int gethRoom();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hRoom
-	 * @see com.faveroomies.DTO.HomeInterface#sethRoom(int)
+	 *            the hRoom to set
 	 */
-	@Override
-	public void sethRoom(int hRoom) {
-		this.hRoom = hRoom;
-	}
+	public void sethRoom(int hRoom);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethName()
+	 * @return the hName
 	 */
-	@Override
-	public String gethName() {
-		return hName;
-	}
+	public String gethName();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hName
-	 * @see com.faveroomies.DTO.HomeInterface#sethName(java.lang.String)
+	 *            the hName to set
 	 */
-	@Override
-	public void sethName(String hName) {
-		this.hName = hName;
-	}
+	public void sethName(String hName);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethAddrSt1()
+	 * @return the hAddrSt1
 	 */
-	@Override
-	public String gethAddrSt1() {
-		return hAddrSt1;
-	}
+	public String gethAddrSt1();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hAddrSt1
-	 * @see com.faveroomies.DTO.HomeInterface#sethAddrSt1(java.lang.String)
+	 *            the hAddrSt1 to set
 	 */
-	@Override
-	public void sethAddrSt1(String hAddrSt1) {
-		this.hAddrSt1 = hAddrSt1;
-	}
+	public void sethAddrSt1(String hAddrSt1);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethAddrSt2()
+	 * @return the hAddrSt2
 	 */
-	@Override
-	public String gethAddrSt2() {
-		return hAddrSt2;
-	}
+	public String gethAddrSt2();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hAddrSt2
-	 * @see com.faveroomies.DTO.HomeInterface#sethAddrSt2(java.lang.String)
+	 *            the hAddrSt2 to set
 	 */
-	@Override
-	public void sethAddrSt2(String hAddrSt2) {
-		this.hAddrSt2 = hAddrSt2;
-	}
+	public void sethAddrSt2(String hAddrSt2);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethCity()
+	 * @return the hCity
 	 */
-	@Override
-	public String gethCity() {
-		return hCity;
-	}
+	public String gethCity();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hCity
-	 * @see com.faveroomies.DTO.HomeInterface#sethCity(java.lang.String)
+	 *            the hCity to set
 	 */
-	@Override
-	public void sethCity(String hCity) {
-		this.hCity = hCity;
-	}
+	public void sethCity(String hCity);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethState()
+	 * @return the hState
 	 */
-	@Override
-	public String gethState() {
-		return hState;
-	}
+	public String gethState();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hState
-	 * @see com.faveroomies.DTO.HomeInterface#sethState(java.lang.String)
+	 *            the hState to set
 	 */
-	@Override
-	public void sethState(String hState) {
-		this.hState = hState;
-	}
+	public void sethState(String hState);
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
-	 * @return
-	 * @see com.faveroomies.DTO.HomeInterface#gethZipcode()
+	 * @return the hZipcode
 	 */
-	@Override
-	public String gethZipcode() {
-		return hZipcode;
-	}
+	public String gethZipcode();
 
 	/**
-	 * @author YeonGyu Yang
-	 * @Since Apr 4, 2016
-	 *
 	 * @param hZipcode
-	 * @see com.faveroomies.DTO.HomeInterface#sethZipcode(java.lang.String)
+	 *            the hZipcode to set
 	 */
-	@Override
-	public void sethZipcode(String hZipcode) {
-		this.hZipcode = hZipcode;
-	}
+	public void sethZipcode(String hZipcode);
 
 }

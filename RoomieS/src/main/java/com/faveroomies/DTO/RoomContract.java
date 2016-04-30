@@ -1,150 +1,96 @@
 /**
  * <p>Project name is RoomieS<br>
  * Package name is life.theroomie.DTO<br>
- * File name is RoomContract.java<br>
+ * File name is RoomContractInterface.java<br>
  *
  * @author YeonGyu Yang
- * @since Mar 16, 2016
+ * @since Apr 4, 2016
  */
 package com.faveroomies.DTO;
 
 /**
- * <p>
- * RoomContract DTO<br>
- * cNum INT NOT NULL AUTO_INCREMENT, -- 계약번호<br>
- * rNum INT NOT NULL, -- 방번호<br>
- * mNum INT NOT NULL, -- 회원번호<br>
- * cStartDate TIMESTAMP NOT NULL, -- 계약일<br>
- * cEndDate TIMESTAMP NOT NULL, -- 계약만료일<br>
- * cDeposit INT NOT NULL DEFAULT 0, -- 방계약금<br>
- * cRental INT NOT NULL DEFAULT 0 -- 방렌트비<br>
  * 
  * @author YeonGyu Yang
- * @Since Mar 16, 2016
+ * @Since Apr 4, 2016
  *
  */
-public class RoomContract implements RoomContractInterface {
-
-	private int cNum, rNum, mNum, cDeposit, cRental;
-	private String cStartDate, cEndDate;
+public interface RoomContract {
 
 	/**
 	 * @return the cNum
 	 */
-	@Override
-	public int getcNum() {
-		return cNum;
-	}
+	public int getcNum();
 
 	/**
 	 * @param cNum
 	 *            the cNum to set
 	 */
-	@Override
-	public void setcNum(int cNum) {
-		this.cNum = cNum;
-	}
+	public void setcNum(int cNum);
 
 	/**
 	 * @return the rNum
 	 */
-	@Override
-	public int getrNum() {
-		return rNum;
-	}
+	public int getrNum();
 
 	/**
 	 * @param rNum
 	 *            the rNum to set
 	 */
-	@Override
-	public void setrNum(int rNum) {
-		this.rNum = rNum;
-	}
+	public void setrNum(int rNum);
 
 	/**
 	 * @return the mNum
 	 */
-	@Override
-	public int getmNum() {
-		return mNum;
-	}
+	public int getmNum();
 
 	/**
 	 * @param mNum
 	 *            the mNum to set
 	 */
-	@Override
-	public void setmNum(int mNum) {
-		this.mNum = mNum;
-	}
+	public void setmNum(int mNum);
 
 	/**
 	 * @return the cDeposit
 	 */
-	@Override
-	public int getcDeposit() {
-		return cDeposit;
-	}
+	public int getcDeposit();
 
 	/**
 	 * @param cDeposit
 	 *            the cDeposit to set
 	 */
-	@Override
-	public void setcDeposit(int cDeposit) {
-		this.cDeposit = cDeposit;
-	}
+	public void setcDeposit(int cDeposit);
 
 	/**
 	 * @return the cRental
 	 */
-	@Override
-	public int getcRental() {
-		return cRental;
-	}
+	public int getcRental();
 
 	/**
 	 * @param cRental
 	 *            the cRental to set
 	 */
-	@Override
-	public void setcRental(int cRental) {
-		this.cRental = cRental;
-	}
+	public void setcRental(int cRental);
 
 	/**
 	 * @return the cStartDate
 	 */
-	@Override
-	public String getcStartDate() {
-		return cStartDate;
-	}
+	public String getcStartDate();
 
 	/**
 	 * @param cStartDate
 	 *            the cStartDate to set
 	 */
-	@Override
-	public void setcStartDate(String cStartDate) {
-		this.cStartDate = cStartDate;
-	}
+	public void setcStartDate(String cStartDate);
 
 	/**
 	 * @return the cEndDate
 	 */
-	@Override
-	public String getcEndDate() {
-		return cEndDate;
-	}
+	public String getcEndDate();
 
 	/**
 	 * @param cEndDate
 	 *            the cEndDate to set
 	 */
-	@Override
-	public void setcEndDate(String cEndDate) {
-		this.cEndDate = cEndDate;
-	}
+	public void setcEndDate(String cEndDate);
 
 }

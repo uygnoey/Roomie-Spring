@@ -27,7 +27,7 @@ import com.faveroomies.security.Encrypt;
  *
  * 
  */
-public class Member implements RoomieInterface, AuthenticatedInterface {
+public class MemberImpl implements Roomie, Authenticated {
 
 	private int aNum, mNum;
 	private String aAuth, mUser, mName, mPhone, mEmail, mDate, mPassword;
@@ -39,7 +39,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.AuthenticatedInterface#getaAuth()
+	 * @see com.faveroomies.DTO.Authenticated#getaAuth()
 	 */
 	@Override
 	public String getaAuth() {
@@ -51,7 +51,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param aAuth
-	 * @see com.faveroomies.DTO.AuthenticatedInterface#setaAuth(java.lang.String)
+	 * @see com.faveroomies.DTO.Authenticated#setaAuth(java.lang.String)
 	 */
 	@Override
 	public void setaAuth(String aAuth) {
@@ -63,7 +63,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmNum()
+	 * @see com.faveroomies.DTO.Roomie#getmNum()
 	 */
 	@Override
 	public int getmNum() {
@@ -75,7 +75,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mNum
-	 * @see com.faveroomies.DTO.RoomieInterface#setmNum(int)
+	 * @see com.faveroomies.DTO.Roomie#setmNum(int)
 	 */
 	@Override
 	public void setmNum(int mNum) {
@@ -87,7 +87,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getaNum()
+	 * @see com.faveroomies.DTO.Roomie#getaNum()
 	 */
 	@Override
 	public int getaNum() {
@@ -99,7 +99,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param aNum
-	 * @see com.faveroomies.DTO.RoomieInterface#setaNum(int)
+	 * @see com.faveroomies.DTO.Roomie#setaNum(int)
 	 */
 	@Override
 	public void setaNum(int aNum) {
@@ -111,7 +111,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmUser()
+	 * @see com.faveroomies.DTO.Roomie#getmUser()
 	 */
 	@Override
 	public String getmUser() {
@@ -123,7 +123,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mUser
-	 * @see com.faveroomies.DTO.RoomieInterface#setmUser(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmUser(java.lang.String)
 	 */
 	@Override
 	public void setmUser(String mUser) {
@@ -135,7 +135,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmName()
+	 * @see com.faveroomies.DTO.Roomie#getmName()
 	 */
 	@Override
 	public String getmName() {
@@ -147,7 +147,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mName
-	 * @see com.faveroomies.DTO.RoomieInterface#setmName(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmName(java.lang.String)
 	 */
 	@Override
 	public void setmName(String mName) {
@@ -159,7 +159,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmPhone()
+	 * @see com.faveroomies.DTO.Roomie#getmPhone()
 	 */
 	@Override
 	public String getmPhone() {
@@ -171,7 +171,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mPhone
-	 * @see com.faveroomies.DTO.RoomieInterface#setmPhone(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmPhone(java.lang.String)
 	 */
 	@Override
 	public void setmPhone(String mPhone) {
@@ -183,7 +183,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmEmail()
+	 * @see com.faveroomies.DTO.Roomie#getmEmail()
 	 */
 	@Override
 	public String getmEmail() {
@@ -195,7 +195,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mEmail
-	 * @see com.faveroomies.DTO.RoomieInterface#setmEmail(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmEmail(java.lang.String)
 	 */
 	@Override
 	public void setmEmail(String mEmail) {
@@ -207,7 +207,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmPassword()
+	 * @see com.faveroomies.DTO.Roomie#getmPassword()
 	 */
 	@Override
 	public String getmPassword() {
@@ -219,7 +219,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mPassword
-	 * @see com.faveroomies.DTO.RoomieInterface#setmPassword(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmPassword(java.lang.String)
 	 */
 	@Override
 	public void setmPassword(String mPassword) {
@@ -231,7 +231,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#getmDate()
+	 * @see com.faveroomies.DTO.Roomie#getmDate()
 	 */
 	@Override
 	public String getmDate() {
@@ -243,7 +243,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param mDate
-	 * @see com.faveroomies.DTO.RoomieInterface#setmDate(java.lang.String)
+	 * @see com.faveroomies.DTO.Roomie#setmDate(java.lang.String)
 	 */
 	@Override
 	public void setmDate(String mDate) {
@@ -255,7 +255,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @return
-	 * @see com.faveroomies.DTO.RoomieInterface#isEnabled()
+	 * @see com.faveroomies.DTO.Roomie#isEnabled()
 	 */
 	@Override
 	public boolean isEnabled() {
@@ -267,7 +267,7 @@ public class Member implements RoomieInterface, AuthenticatedInterface {
 	 * @Since Apr 14, 2016
 	 *
 	 * @param enabled
-	 * @see com.faveroomies.DTO.RoomieInterface#setEnabled(boolean)
+	 * @see com.faveroomies.DTO.Roomie#setEnabled(boolean)
 	 */
 	@Override
 	public void setEnabled(boolean mEnabled) {

@@ -18,10 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.ui.ModelMap;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.faveroomies.DTO.Roomie;
+import com.faveroomies.DTO.RoomieImpl;
 
 /**
  * 
@@ -53,13 +52,13 @@ public class EmailNotificationService {
 		this.velocityEngine = velocityEngine;
 	}
 
-	public void register(Roomie roomie, String regiCode) {
+	public void register(RoomieImpl roomie, String regiCode) {
 
 		sendConfirmationEmail(roomie, regiCode);
 
 	}
 
-	private void sendConfirmationEmail(final Roomie roomie, final String regiCode) {
+	private void sendConfirmationEmail(final RoomieImpl roomie, final String regiCode) {
 
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
