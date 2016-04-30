@@ -3,31 +3,36 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
 	<!--Import CSS-->
 	<link type="text/css" rel="stylesheet" href="regConfirmation.css" />
 	<!--Import materialize.css-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link type="text/css" rel="stylesheet"
 		href="materialize/css/materialize.min.css" media="screen,projection" />
+	
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
 </head>
 <body>
 	<div class="container" id="container">
-		<header th:fragment="nologin">
+		<header>
 			<nav>
-				<div class="nav-wrapper  grey-text text-darken-3">
-					<ul class="right hide-on-med-and-down white">
-						<li>Hi ${roomie.mUser}</li>
-					</ul>
+				<div class="nav-wrapper blue-grey lighten-3 padding10l">
+					<span class="brand-logo white-text left">Hi ${roomie.mUser}</span>
 				</div>
 			</nav>
 		</header>
 		<div class="col s12 m8">
 			<div class="card">
-					<div class="card-content">
-						You created an account with the email address: ${roomie.mEmail}, and confirm code: ${regiCode}<br/>
-						Click "Confirm" to verify the email address and unlock your full account.
+					<div class="card-content center">
+						You created an account with the email address: ${roomie.mEmail}, and a confirm code: <b>${regiCode}</b>.<br/>
+						<b>Click "Confirm"</b> to verify the email address and unlock your full account.
 					</div>
 					<div class="card-action">
-					<div class="inline-block">
+					<div class="inline-block center">
 						<a href="http://faveroomies.com/regconfirm?code=${regiCode}"><button class="btn waves-effect waves-light pink" type="button"
 							name="action">
 							<i class="material-icons left">done</i>Confirm
@@ -37,8 +42,7 @@
 				</form>
 			</div>
 		</div>
-		<!-- Index Page Footer (No Login) -->
-		<footer class="page-footer grey darken-3" th:fragment="nologin">
+		<footer class="page-footer grey darken-3">
 			<div class="container">
 				<div class="row">
 					<div class="col l6 s12">
