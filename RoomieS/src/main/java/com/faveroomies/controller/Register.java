@@ -20,6 +20,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.faveroomies.DTO.RoomieImpl;
 import com.faveroomies.mail.EmailNotificationService;
@@ -38,7 +39,7 @@ public class Register {
 
 	@Autowired
 	private RoomieMapper roomieMapper;
-	
+
 	private Encrypt encrypt = new Encrypt();
 	private EmailNotificationService emailNotification = new EmailNotificationService();
 
@@ -82,15 +83,15 @@ public class Register {
 		String page = null;
 
 		HttpSession session = req.getSession();
-		
+
 		if (roomieMapper.insertRoomie(roomie.getmUser(), roomie.getmEmail(), roomie.getmPassword()) > 0) {
-			
-			String regiCode = encrypt.encrypt(roomie.getmEmail()+roomie.getmUser());
-			
-			session.setAttribute("regiCode", regiCode);
-			
+
+			String regiCode = encrypt.encrypt(roomie.getmEmail() + roomie.getmUser());
+
+			session.setAttribute(roomie.getmUser(), regiCode);
+
 			emailNotification.register(roomie, regiCode);
-			
+
 			modelMap.addAttribute("userinfo", roomie);
 			page = "signupssuccess";
 
@@ -99,6 +100,21 @@ public class Register {
 		}
 
 		return page;
+	}
+
+	@RequestMapping(value = "/regconfirm", params = { "key", "code" })
+	public String regConfirm(@RequestParam("key") String key, @RequestParam("code") String code,
+			HttpServletRequest req) {
+
+		HttpSession session = req.getSession();
+
+		if (code == session.getAttribute(key)) {
+			
+		} else {
+
+		}
+
+		return "";
 	}
 
 }

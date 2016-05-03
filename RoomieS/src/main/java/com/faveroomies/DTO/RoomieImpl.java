@@ -33,7 +33,7 @@ public class RoomieImpl implements Roomie {
 
 	private String mUser, mName, mPhone, mEmail, mPassword, mDate;
 
-	private boolean enabled;
+	private boolean mEnabled, mConfirmed;
 
 	private Encrypt encryptSth = new Encrypt();
 
@@ -161,15 +161,29 @@ public class RoomieImpl implements Roomie {
 	 * @return the enabled
 	 */
 	public boolean isEnabled() {
-		return enabled;
+		return mEnabled;
 	}
 
 	/**
 	 * @param enabled
 	 *            the enabled to set
 	 */
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
+	public void setEnabled(boolean mEnabled) {
+		this.mEnabled = mEnabled;
+	}
+	
+	/**
+	 * @return the mConfirmed
+	 */
+	public boolean ismConfirmed() {
+		return mConfirmed;
+	}
+
+	/**
+	 * @param mConfirmed the mConfirmed to set
+	 */
+	public void setmConfirmed(boolean mConfirmed) {
+		this.mConfirmed = mConfirmed;
 	}
 
 }

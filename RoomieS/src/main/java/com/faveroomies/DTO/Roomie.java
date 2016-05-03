@@ -114,5 +114,14 @@ public interface Roomie {
 	 *            the enabled to set
 	 */
 	public void setEnabled(boolean mEnabled);
+	
+	/**
+	 * @return the mConfirmed
+	 */
+	public boolean ismConfirmed();
 
+	/**
+	 * @param mConfirmed the mConfirmed to set
+	 */
+	public void setmConfirmed(boolean mConfirmed);
 }

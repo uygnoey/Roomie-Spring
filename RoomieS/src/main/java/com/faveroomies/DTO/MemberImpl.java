@@ -31,7 +31,7 @@ public class MemberImpl implements Roomie, Authenticated {
 
 	private int aNum, mNum;
 	private String aAuth, mUser, mName, mPhone, mEmail, mDate, mPassword;
-	private boolean mEnabled;
+	private boolean mEnabled, mConfirmed;
 	private Encrypt encrypt = new Encrypt();
 
 	/**
@@ -272,6 +272,21 @@ public class MemberImpl implements Roomie, Authenticated {
 	@Override
 	public void setEnabled(boolean mEnabled) {
 		this.mEnabled = mEnabled;
+	}
+	
+
+	/**
+	 * @return the mConfirmed
+	 */
+	public boolean ismConfirmed() {
+		return mConfirmed;
+	}
+
+	/**
+	 * @param mConfirmed the mConfirmed to set
+	 */
+	public void setmConfirmed(boolean mConfirmed) {
+		this.mConfirmed = mConfirmed;
 	}
 
 }
