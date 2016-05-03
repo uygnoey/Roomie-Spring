@@ -78,7 +78,7 @@ public class Register {
 	public String regProcess(@RequestBody RoomieImpl roomie, ModelMap modelMap, HttpServletRequest req) {
 
 		logger.info("Register Process");
-		logger.debug(roomie.getmUser() + " // " + roomie.getmEmail() + " // " + roomie.getmPassword());
+		logger.info(roomie.getmUser() + " // " + roomie.getmEmail() + " // " + roomie.getmPassword());
 
 		String page = null;
 
@@ -89,7 +89,9 @@ public class Register {
 			String regiCode = encrypt.encrypt(roomie.getmEmail() + roomie.getmUser());
 
 			session.setAttribute(roomie.getmUser(), regiCode);
-
+			
+			logger.info("Roomie : " + roomie + "roomie values" + roomie.getmUser() + " // " + roomie.getmEmail() +  " code : " + regiCode);
+			
 			emailNotification.register(roomie, regiCode);
 
 			modelMap.addAttribute("userinfo", roomie);
