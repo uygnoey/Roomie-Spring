@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @MapperScan("life.theroomie.mapper")
-public class Register {
+public class RestRegister {
 	
 
 }
