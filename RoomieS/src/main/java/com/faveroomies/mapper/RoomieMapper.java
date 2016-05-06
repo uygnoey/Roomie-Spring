@@ -36,7 +36,16 @@ public interface RoomieMapper {
 	@Select("select * from member where mName = #{name}")
 	ArrayList<MemberImpl> selectName(@Param("name") String name);
 
+	@Select("select * from member where mUser = #{username}")
+	ArrayList<MemberImpl> selectUser(@Param("username") String username);
+	
 	@Select("select * from member where mEmail = #{email}")
 	ArrayList<MemberImpl> selectEmail(@Param("email") String email);
+	
+	@Select("select count(*) from member where mUser = #{username}")
+	int countUser(@Param("username") String username);
+	
+	@Select("select count(*) from member where mEmail like #{email}")
+	int countEmail(@Param("email") String email);
 
 }
