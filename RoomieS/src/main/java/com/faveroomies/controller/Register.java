@@ -18,11 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.faveroomies.DTO.RoomieImpl;
+import com.faveroomies.form.RegisterForm;
 import com.faveroomies.mail.EmailNotificationService;
 import com.faveroomies.mapper.RoomieMapper;
 import com.faveroomies.security.Encrypt;
@@ -54,8 +55,8 @@ public class Register {
 	 * @param model
 	 * @return {@link String}
 	 */
-	@RequestMapping("/register")
-	public String register(Model model) {
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String register(RegisterForm registerForm, Model model) {
 
 		logger.info("Register page");
 
@@ -74,49 +75,37 @@ public class Register {
 	 * @param roomie
 	 * @return
 	 */
-	@RequestMapping(value = "/register/process")
-	public String regProcess(@RequestBody RoomieImpl roomie, ModelMap modelMap, HttpServletRequest req) {
-
-		logger.info("Register Process");
-		logger.info(roomie.getmUser() + " // " + roomie.getmEmail() + " // " + roomie.getmPassword());
-
-		String page = null;
-
-		HttpSession session = req.getSession();
-
-		if (roomieMapper.insertRoomie(roomie.getmUser(), roomie.getmEmail(), roomie.getmPassword()) > 0) {
-
-			String regiCode = encrypt.encrypt(roomie.getmEmail() + roomie.getmUser());
-
-			session.setAttribute(roomie.getmUser(), regiCode);
-			
-			logger.info("Roomie : " + roomie + "roomie values" + roomie.getmUser() + " // " + roomie.getmEmail() +  " code : " + regiCode);
-			
-			emailNotification.register(roomie, regiCode);
-
-			modelMap.addAttribute("userinfo", roomie);
-			page = "signupssuccess";
-
-		} else {
-			page = "singupfailed";
-		}
-
-		return page;
-	}
-
-	@RequestMapping(value = "/regconfirm", params = { "key", "code" })
-	public String regConfirm(@RequestParam("key") String key, @RequestParam("code") String code,
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, ModelMap modelMap,
 			HttpServletRequest req) {
 
+		logger.info("Register Process");
+		logger.info(
+				registerForm.getUsername() + " // " + registerForm.getEmail() + " // " + registerForm.getPassword());
+
 		HttpSession session = req.getSession();
 
-		if (code == session.getAttribute(key)) {
-			
-		} else {
+		if (bindingResult.hasErrors()) {
+			return "register";
+		} else if (roomieMapper.insertRoomie(registerForm.getUsername(), registerForm.getEmail(),
+				registerForm.getPassword()) > 0) {
 
+			String regiCode = encrypt.encrypt(registerForm.getEmail() + registerForm.getUsername());
+
+			session.setAttribute(registerForm.getUsername(), regiCode);
+
+			logger.info("Roomie : " + registerForm + "roomie values" + registerForm.getUsername() + " // "
+					+ registerForm.getEmail() + " code : " + regiCode);
+
+			emailNotification.register(registerForm, regiCode);
+
+			// modelMap.addAttribute("userinfo", roomie);
+			return "register_s";
+
+		} else {
+			return "register";
 		}
 
-		return "";
 	}
 
 }
