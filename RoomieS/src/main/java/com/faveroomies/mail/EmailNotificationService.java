@@ -13,17 +13,15 @@ import java.util.Map;
 
 import javax.mail.internet.MimeMessage;
 
-import org.apache.velocity.app.VelocityEngine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
-import org.springframework.ui.velocity.VelocityEngineUtils;
+import org.springframework.stereotype.Component;
 
-import com.faveroomies.DTO.RoomieImpl;
+import com.faveroomies.form.RegisterForm;
 
 /**
  * 
@@ -31,72 +29,86 @@ import com.faveroomies.DTO.RoomieImpl;
  * @Since Mar 16, 2016
  *
  */
+@Component
 public class EmailNotificationService {
 
 	private Logger logger = LoggerFactory.getLogger(EmailNotificationService.class);
-	
+
 	@Autowired
 	private JavaMailSender mailSender;
-	
-	@Autowired
-	private VelocityEngine velocityEngine;
 
-	@Value("spring.mail.host")
-	private String mailHost;
+	private final String MAIL_FROM = "no-reply@faveroomies.com";
 
-	/**
-	 * @param mailSender
-	 *            the mailSender to set
-	 */
-	public void setMailSender(JavaMailSender mailSender) {
-		this.mailSender = mailSender;
-	}
-
-	/**
-	 * @param velocityEngine
-	 *            the velocityEngine to set
-	 */
-	public void setVelocityEngine(VelocityEngine velocityEngine) {
-		this.velocityEngine = velocityEngine;
-	}
-
-	public void register(RoomieImpl roomie, String regiCode) {
+	public void register(RegisterForm registerForm, String regiCode) {
 
 		logger.info("Email sender");
-		logger.info("Roomie : " + roomie + "roomie values" + roomie.getmUser() + " // " + roomie.getmEmail() +  " code : " + regiCode);
-		
-		sendConfirmationEmail(roomie, regiCode);
+		logger.info("Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // " + registerForm.getEmail()
+				+ " code : " + regiCode + " ]");
 
+		this.sendConfirmationEmail(registerForm, regiCode);
 	}
 
-	private void sendConfirmationEmail(final RoomieImpl roomie, final String regiCode) {
+	private void sendConfirmationEmail(RegisterForm registerForm, String regiCode) {
 
+		logger.info("Send Confirmation Email Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // "
+				+ registerForm.getEmail() + " code : " + regiCode + " ]");
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			@Override
-			public void prepare(MimeMessage mimeMessage) throws Exception {
-				
+			public void prepare(MimeMessage mimeMessage) {
+
 				logger.info("Send Confirmation Email setting");
-				
-				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
-				message.setTo(roomie.getmEmail());
-				message.setFrom("no-reply@faveroomies.com");
+				try {
+					MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
-				Map<String, Object> model = new HashMap<String, Object>();
+					message.setTo(registerForm.getEmail());
+					message.setFrom(MAIL_FROM);
 
-				model.put("roomie", roomie);
-				model.put("regiCode", regiCode);
+					Map<String, Object> model = new HashMap<String, Object>();
 
-				String mailText = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "regiConfirmation.vm",
-						"utf8", model);
+					model.put("roomie", registerForm);
+					model.put("regiCode", regiCode);
 
-				message.setText(mailText, true);
+					String mailText = "test";
+
+					message.setText(mailText, true);
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.error(e.getMessage());
+				}
+
 			}
 		};
-		
+
 		logger.info("mail send");
-		this.mailSender.send(preparator);
+		mailSender.send(preparator);
+
+		/*logger.info("mail sender 2");
+		MimeMessage message = mailSender.createMimeMessage();
+		logger.info(mailSender.createMimeMessage().toString());
+		
+		try {
+			
+			MimeMessageHelper helper = new MimeMessageHelper(message, true);
+
+			helper.setFrom(MAIL_FROM);
+			helper.setTo(roomie.getmEmail());
+			helper.setText("test");
+			
+			logger.info(helper.getMimeMessage().toString());
+			logger.info(helper.getEncoding());
+			logger.info(message.getFrom().toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			logger.error(e.getMessage());
+		} finally {
+			logger.info("mail send 2");
+			mailSender.send(message);
+		}*/
+
 	}
 
 }
