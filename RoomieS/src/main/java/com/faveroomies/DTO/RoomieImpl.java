@@ -30,9 +30,7 @@ import com.faveroomies.security.Encrypt;
 public class RoomieImpl implements Roomie {
 
 	private int mNum, aNum;
-
-	private String mUser, mName, mPhone, mEmail, mPassword, mDate;
-
+	private String mUser, mEmail, mPassword, mName, mPhone, mDate;
 	private boolean mEnabled, mConfirmed;
 
 	private Encrypt encryptSth = new Encrypt();
@@ -171,7 +169,7 @@ public class RoomieImpl implements Roomie {
 	public void setEnabled(boolean mEnabled) {
 		this.mEnabled = mEnabled;
 	}
-	
+
 	/**
 	 * @return the mConfirmed
 	 */
@@ -180,7 +178,8 @@ public class RoomieImpl implements Roomie {
 	}
 
 	/**
-	 * @param mConfirmed the mConfirmed to set
+	 * @param mConfirmed
+	 *            the mConfirmed to set
 	 */
 	public void setmConfirmed(boolean mConfirmed) {
 		this.mConfirmed = mConfirmed;
