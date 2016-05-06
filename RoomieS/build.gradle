@@ -44,7 +44,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-websocket')
     compile('org.springframework.boot:spring-boot-starter-actuator')
     compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.0')
-    compile('org.springframework.boot:spring-boot-starter-velocity')
+    compile('com.sun.mail:javax.mail')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
