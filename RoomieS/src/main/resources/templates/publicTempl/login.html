@@ -10,20 +10,16 @@
 <body>
 	<!-- Login from -->
 	<div class="row center" th:fragment="loginform">
-		<div th:if="${param.error}">
-			<script type="text/javascript" th:inline="javascript">
+		<script type="text/javascript" th:if="${param.error}" th:inline="javascript">
 			/*<![CDATA[*/
-			Materialize.toast(/*[[#{login.error.message}]]*/, 4000)
+				Materialize.toast(/*[[#{login.error.message}]]*/, 4000)
 			/*]]>*/
-			</script>
-		</div>
-		<div th:if="${param.logout}">
-			<script type="text/javascript" th:inline="javascript">
+		</script>
+		<script type="text/javascript" th:if="${param.logout}" th:inline="javascript">
 			/*<![CDATA[*/
-			Materialize.toast(/*[[#{login.logout.message}]]*/, 4000)
+				Materialize.toast(/*[[#{login.logout.message}]]*/, 4000)
 			/*]]>*/
-			</script>
-		</div>
+		</script>
 		<div class="col s12 m6 offset-m3 l6 offset-l3">
 			<div class="card">
 				<form th:action="@{/login}" method="post">

@@ -9,27 +9,39 @@
 </head>
 <body>
 	<div class="center row" th:fragment="registerform">
+
+		<script type="text/javascript" th:each="err : ${#fields.errors('*')}" th:inline="javascript">
+			/*<![CDATA[*/
+				Materialize.toast(/*[[${err}}]]*/, 4000)
+			/*]]>*/
+		</script>
+		
 		<div class="col s12 m6 offset-m3 l6 offset-l3">
 			<div class="card">
-				<form th:action="@{/register/process}" id="signupForm" name="signupForm" method="post">
+				<form th:action="@{/register}" th:object="${registerForm}" id="signupForm" name="signupForm" method="post">
 					<div class="card-content">
 						<sapn class="card-title" th:text="#{register.card.title}"></sapn>
 						<div class="input-field">
-							<input type="text" name="username" id="username" class="validate" />
+							<input type="text" th:field="*{username}" name="username" id="username" length="30" class="validate" />
 							<label for="username" th:text="#{register.input.username}"></label>
+							<span id="usernameOverlap" class="errors"></span>
+							<span class="errors" th:if="${#fields.errors('*{username}')}" th:errors="*{username}"></span>
 						</div>
 						<div class="input-field">
-							<input type="email" id="email" class="validate" name="email" />
-							<label for="email" data-error="wrong" data-success="right" th:text="#{register.input.email}"></label>
+							<input type="email" th:field="*{email}" id="email" class="validate" name="email" />
+							<label for="email" th:text="#{register.input.email}"></label>
+							<span id="emailOverlap" class="errors"></span>
+							<span class="errors" th:if="${#fields.errors('*{email}')}" th:errors="*{email}"></span>
 						</div>
 						<div class="input-field">
-							<input type="password" name="password" id="password" class="validate" />
+							<input type="password" th:field="*{password}" name="password" id="password" class="validate" />
 							<label for="password" th:text="#{register.input.password}"></label>
+							<span class="errors" th:if="${#fields.errors('*{password}')}" th:errors="*{password}"></span>
 						</div>
 					</div>
 					<div class="card-action" th:inline="text">
 						<div class="inline-block">
-							<button type="button" id="signupBtn" class="btn waves-effect waves-light" name="action">
+							<button type="submit" id="signupBtn" class="btn waves-effect waves-light" disabled="disabled" name="action">
 								<i class="material-icons left">add</i>[[#{register.input.signup}]]
 							</button>
 						</div>
@@ -40,18 +52,99 @@
 		<script type="text/javascript" th:inline="javascript">
 		/*<![CDATA[*/
 			$(document).ready(function(){
-			    $('#signupBtn').click(function(){
-			    	
-					$.ajax({
-						type: 'post',
-						url: /*[[@{/register/process}]]*/,
-						dataTpye: 'json',
-						contentType : "application/json;charset=utf8",
-						data: JSON.stringify({"mUser" : $('#username').val(),
-							"mEmail" : $('#email').val(),
-							"mPassword" : $('#password').val()})
-					});
+				
+				var activation= new Array(false, false, false);
+				console.log(activation[0] + " " + activation[1] + " " + activation[2]);
+				
+				if ($('#username').val() != "") {
+					$('#username').keyup();
+				};
+				
+				$('#username').keyup(function() {
+					overlap('username');
+				})
+				
+				$('#username').focusout(function() {
+					overlap('username');
 				});
+				
+				if ($('#email').val() != "") {
+					$('#email').keyup();
+					overlap('email');
+				}
+				
+				$('#email').keyup(function() {
+					overlap('email');
+				});
+				
+				$('#email').focusout(function() {
+					overlap('email');
+				});
+				
+				if ($('#password').val() != "") {
+					$('#password').keyup();
+				}
+				
+				$('#password').keyup(function() {
+					length('password');
+				});
+				
+				$('#password').focusout(function(){
+					length('password');
+				});
+				
+				
+				
+				function overlap(value) {
+					$.ajax({
+						type: "POST",
+						url : /*[[@{/register/overlap}]]*/,
+						data : value + "=" + $('#'+value).val(),
+						success: 
+							function(data) {
+								if (data) {
+									console.log(data)
+									if (value == 'email') {
+										$('#emailOverlap').text(/*[[#{email.overlap.cannot.message}]]*/)
+										activation[1] = false;
+									} else if (value == 'username') {
+										$('#usernameOverlap').text(/*[[#{username.overlap.cannot.message}]]*/)
+										activation[0] = false;
+									}
+									$('#' + value+'Overlap').css({'color' : 'red'})
+								} else {
+									console.log(data)
+									if (value == 'email') {
+										$('#emailOverlap').text(/*[[#{email.overlap.can.message}]]*/)
+										activation[1] = true;
+									} else if (value == 'username') {
+										$('#usernameOverlap').text(/*[[#{username.overlap.can.message}]]*/)
+										activation[0] = true;
+									}
+									$('#' + value + 'Overlap').css({'color' : 'green'})
+								}
+								activationCheck();
+							}
+					});
+				}
+				
+				function length(value) {
+					if ($('#'+value).val().length >= 6) {
+						activation[2] = true;
+					} else {
+						activation[2] = false;
+					}
+					activationCheck();
+				}
+				
+				function activationCheck() {
+					console.log(activation[0] + " " + activation[1] + " " + activation[2]);
+					if (activation[0] && activation[1] && activation[2]){
+						$('#signupBtn').prop('disabled', false);
+					} else {
+						$('#signupBtn').prop('disabled', true);
+					}
+				}
 			});
 		/*]]>*/
 		</script>
