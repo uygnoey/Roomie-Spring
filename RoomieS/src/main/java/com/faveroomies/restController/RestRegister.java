@@ -13,9 +13,15 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.faveroomies.form.RegisterForm;
 import com.faveroomies.mapper.RoomieMapper;
 
 /**
@@ -48,25 +54,37 @@ public class RestRegister {
 	}
 
 	@RequestMapping(value = "/register/overlap", params = "email")
-	public boolean emailOverlap(@Param("email") String email) {
+	public boolean emailOverlap(@Validated RegisterForm registerForm, BindingResult bindingResult, ModelMap modelMap) {
 
 		logger.info("Eamil Overlap Check");
 
 		int overlapCount = 0;
 
-		if (email.split("[+]").length > 1) {
-			logger.info(email.split("[+]")[0]);
-			overlapCount = roomieMapper.countEmail(email.split("[+]")[0] + "%");
+		if (registerForm.getEmail().trim().split("[+]").length > 1 && registerForm.getEmail().trim().length() > 0) {
+			logger.info(registerForm.getEmail().trim().split("[+]")[0]);
+			overlapCount = roomieMapper.countEmail(registerForm.getEmail().trim().split("[+]")[0] + "%");
 			logger.info(((Integer) overlapCount).toString());
-		} else {
-			overlapCount = roomieMapper.countEmail(email + "%");
+		} else if (registerForm.getEmail().trim().length() > 0) {
+			overlapCount = roomieMapper.countEmail(registerForm.getEmail().trim() + "%");
 			logger.info(((Integer) overlapCount).toString());
 		}
 
-		if (overlapCount > 0 || email.split("[@]").length <= 1)
+		if (overlapCount > 0 || registerForm.getEmail().trim().split("[@]").length <= 1)
 			return true;
 		else
 			return false;
+
+	}
+
+	@RequestMapping(value = "/register/validate", method = RequestMethod.POST)
+	public boolean regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult) {
+
+		logger.info("Register Validated");
+
+		if (bindingResult.hasErrors()) {
+			return false;
+		} else
+			return true;
 
 	}
 

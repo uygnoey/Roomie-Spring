@@ -31,17 +31,14 @@ public class Index {
 	public String index(Model model) {
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		String page = "";
-		
+
 		if (principal instanceof UserDetails) {
 			logger.info(((UserDetails) principal).getUsername() + " login success.\nPage is index");
-			page = "indexlogined";
+			return "indexlogined";
 		} else {
 			logger.info("Page is index");
-			page = "index";
+			return "index";
 		}
 
-		return page;
 	}
 }

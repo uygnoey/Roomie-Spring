@@ -8,6 +8,8 @@
  */
 package com.faveroomies.controller;
 
+import java.util.Locale;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.faveroomies.form.RegisterForm;
 import com.faveroomies.mail.EmailNotificationService;
 import com.faveroomies.mapper.RoomieMapper;
+import com.faveroomies.security.CodeGenerator;
 import com.faveroomies.security.Encrypt;
 
 /**
@@ -41,8 +44,11 @@ public class Register {
 	@Autowired
 	private RoomieMapper roomieMapper;
 
+	@Autowired
+	private EmailNotificationService emailNotification;
+	
+	private CodeGenerator codeGenerator = new CodeGenerator();
 	private Encrypt encrypt = new Encrypt();
-	private EmailNotificationService emailNotification = new EmailNotificationService();
 
 	private Logger logger = LoggerFactory.getLogger(Register.class);
 
@@ -76,7 +82,7 @@ public class Register {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, ModelMap modelMap,
+	public String regProcess(@Validated RegisterForm registerForm, Locale locale, BindingResult bindingResult, ModelMap modelMap,
 			HttpServletRequest req) {
 
 		logger.info("Register Process");
@@ -87,19 +93,19 @@ public class Register {
 
 		if (bindingResult.hasErrors()) {
 			return "register";
-		} else if (roomieMapper.insertRoomie(registerForm.getUsername(), registerForm.getEmail(),
-				registerForm.getPassword()) > 0) {
+		} else if (roomieMapper.insertRoomie(registerForm.getUsername().trim(), registerForm.getEmail().trim(),
+				encrypt.encrypt(registerForm.getPassword().trim())) > 0) {
 
-			String regiCode = encrypt.encrypt(registerForm.getEmail() + registerForm.getUsername());
+			String regiCode = codeGenerator.generator();
 
-			session.setAttribute(registerForm.getUsername(), regiCode);
+			session.setAttribute(registerForm.getUsername().trim(), regiCode);
 
-			logger.info("Roomie : " + registerForm + "roomie values" + registerForm.getUsername() + " // "
-					+ registerForm.getEmail() + " code : " + regiCode);
+			logger.info("Roomie : " + registerForm + "roomie values" + registerForm.getUsername().trim() + " // "
+					+ registerForm.getEmail().trim() + " code : " + regiCode);
 
-			emailNotification.register(registerForm, regiCode);
+			emailNotification.register(registerForm, regiCode, locale);
 
-			// modelMap.addAttribute("userinfo", roomie);
+			modelMap.addAttribute("userinfo", registerForm);
 			return "register_s";
 
 		} else {
