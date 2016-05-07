@@ -28,11 +28,11 @@
 			<div class="card">
 				<div class="card-content center">
 					<span class="card-title" th:text="#{mail.greeting(${roomie.username})}"></span>
-					<p th:text="#{mail.confirm.message(${roomie.email}${code})}"></p>
+					<p th:text="#{mail.confirm.message(${roomie.email},${code})}"></p>
 				</div>
 				<div class="card-action">
 					<div class="inline-block center">
-						<a th:href="@{http://faveroomies.com/regconfirm(code=${regiCode})}"><button
+						<a th:href="@{http://faveroomies.com/regconfirm(code=${code})}"><button
 								class="btn waves-effect waves-light pink" type="button"
 								name="action" th:inline="text" >
 								<i class="material-icons left">done</i>[[#{mail.confirm.button}]]
