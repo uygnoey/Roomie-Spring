@@ -92,7 +92,7 @@ public class Register {
 		HttpSession session = req.getSession();
 
 		if (bindingResult.hasErrors()) {
-			return "register";
+			return "redirect:/register";
 		} else if (roomieMapper.insertRoomie(registerForm.getUsername().trim(), registerForm.getEmail().trim(),
 				encrypt.encrypt(registerForm.getPassword().trim())) > 0) {
 
