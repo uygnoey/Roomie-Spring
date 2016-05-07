@@ -21,7 +21,7 @@ import org.hibernate.validator.constraints.Email;
  *
  */
 public class RegisterForm {
-
+	
 	@Size(min = 4, max = 30)
 	@NotNull
 	private String username;
@@ -31,12 +31,12 @@ public class RegisterForm {
 	private String email;
 
 	@NotNull
-	@Size(min=6, message="${password.length.error}")
-	@Pattern.List({ @Pattern(regexp = "(?=.*[0-9]).+", message = "${password.num.error}"),
-			@Pattern(regexp = "(?=.*[a-z]).+", message = "${password.lower.error}"),
-			@Pattern(regexp = "(?=.*[A-Z]).+", message = "${password.upper.error}"),
-			@Pattern(regexp = "(?=.*[!@#$%^&*+=?-_()/\"\\.,<>~`;:]).+", message = "${password.special.error}"),
-			@Pattern(regexp = "(?=\\S+$).+", message = "${password.space.error") })
+	@Size(min=6, message="{password.length.error}")
+	@Pattern.List({ @Pattern(regexp = "(?=.*[0-9]).+", message = "{password.num.error}"),
+			@Pattern(regexp = "(?=.*[a-z]).+", message = "{password.lower.error}"),
+			@Pattern(regexp = "(?=.*[A-Z]).+", message = "{password.upper.error}"),
+			@Pattern(regexp = "(?=.*[!@#$%^&*+=?-_()/\"\\.,<>~`;:]).+", message = "{password.special.error}"),
+			@Pattern(regexp = "(?=\\S+$).+", message = "{password.space.error") })
 	private String password;
 
 	/**
