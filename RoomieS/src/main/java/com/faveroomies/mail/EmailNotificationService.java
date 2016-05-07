@@ -8,8 +8,7 @@
  */
 package com.faveroomies.mail;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Locale;
 
 import javax.mail.internet.MimeMessage;
 
@@ -20,6 +19,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 import com.faveroomies.form.RegisterForm;
 
@@ -30,6 +32,7 @@ import com.faveroomies.form.RegisterForm;
  *
  */
 @Component
+@Service
 public class EmailNotificationService {
 
 	private Logger logger = LoggerFactory.getLogger(EmailNotificationService.class);
@@ -37,21 +40,24 @@ public class EmailNotificationService {
 	@Autowired
 	private JavaMailSender mailSender;
 
+	@Autowired
+	private SpringTemplateEngine templateEngine;
+
 	private final String MAIL_FROM = "no-reply@faveroomies.com";
 
-	public void register(RegisterForm registerForm, String regiCode) {
+	public void register(RegisterForm registerForm, String regiCode, Locale locale) {
 
 		logger.info("Email sender");
-		logger.info("Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // " + registerForm.getEmail()
-				+ " code : " + regiCode + " ]");
+		logger.info("Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // "
+				+ registerForm.getEmail() + " code : " + regiCode + " ]");
 
-		this.sendConfirmationEmail(registerForm, regiCode);
+		this.sendConfirmationEmail(registerForm, regiCode, locale);
 	}
 
-	private void sendConfirmationEmail(RegisterForm registerForm, String regiCode) {
+	private void sendConfirmationEmail(RegisterForm registerForm, String regiCode, Locale locale) {
 
-		logger.info("Send Confirmation Email Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // "
-				+ registerForm.getEmail() + " code : " + regiCode + " ]");
+		logger.info("Send Confirmation Email Roomie : " + registerForm + "roomie values [" + registerForm.getUsername()
+				+ " // " + registerForm.getEmail() + " code : " + regiCode + " ]");
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			@Override
@@ -62,17 +68,18 @@ public class EmailNotificationService {
 				try {
 					MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
+					
 					message.setTo(registerForm.getEmail());
 					message.setFrom(MAIL_FROM);
 
-					Map<String, Object> model = new HashMap<String, Object>();
+					Context context = new Context(locale);
+					context.setVariable("roomie", registerForm);
+					context.setVariable("code", regiCode);
 
-					model.put("roomie", registerForm);
-					model.put("regiCode", regiCode);
+					String htmlContent = templateEngine.process("mail_confirmation", context);
 
-					String mailText = "test";
-
-					message.setText(mailText, true);
+					message.setSubject("FaveRoomies.com Sign Up Confirmation");
+					message.setText(htmlContent, true);
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -84,30 +91,6 @@ public class EmailNotificationService {
 
 		logger.info("mail send");
 		mailSender.send(preparator);
-
-		/*logger.info("mail sender 2");
-		MimeMessage message = mailSender.createMimeMessage();
-		logger.info(mailSender.createMimeMessage().toString());
-		
-		try {
-			
-			MimeMessageHelper helper = new MimeMessageHelper(message, true);
-
-			helper.setFrom(MAIL_FROM);
-			helper.setTo(roomie.getmEmail());
-			helper.setText("test");
-			
-			logger.info(helper.getMimeMessage().toString());
-			logger.info(helper.getEncoding());
-			logger.info(message.getFrom().toString());
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error(e.getMessage());
-		} finally {
-			logger.info("mail send 2");
-			mailSender.send(message);
-		}*/
 
 	}
 
