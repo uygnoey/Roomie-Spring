@@ -82,7 +82,7 @@ public class Register {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String regProcess(@Validated RegisterForm registerForm, Locale locale, BindingResult bindingResult, ModelMap modelMap,
+	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, ModelMap modelMap,
 			HttpServletRequest req) {
 
 		logger.info("Register Process");
@@ -91,10 +91,13 @@ public class Register {
 
 		HttpSession session = req.getSession();
 
+		logger.info(session.getAttributeNames().toString());
+		
 		if (bindingResult.hasErrors()) {
-			return "redirect:/register";
-		} else if (roomieMapper.insertRoomie(registerForm.getUsername().trim(), registerForm.getEmail().trim(),
-				encrypt.encrypt(registerForm.getPassword().trim())) > 0) {
+            return "register";
+        }else if (roomieMapper.insertRoomie(registerForm.getUsername().trim(), registerForm.getEmail().trim(),
+			
+			encrypt.encrypt(registerForm.getPassword().trim())) > 0) {
 
 			String regiCode = codeGenerator.generator();
 
@@ -103,7 +106,7 @@ public class Register {
 			logger.info("Roomie : " + registerForm + "roomie values" + registerForm.getUsername().trim() + " // "
 					+ registerForm.getEmail().trim() + " code : " + regiCode);
 
-			emailNotification.register(registerForm, regiCode, locale);
+			//emailNotification.register(registerForm, regiCode, locale);
 
 			modelMap.addAttribute("userinfo", registerForm);
 			return "register_s";
