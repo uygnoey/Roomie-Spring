@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<!--Import Google Icon Font-->
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet" />
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" th:href="@{materialize/css/materialize.min.css}" media="screen,projection" />
+	
+	<!-- Import custom css -->
+	<link type="text/css" rel="stylesheet" th:href="@{css/public.css}" />
+</head>
+<body>
+	<!--Import jQuery before materialize.js-->
+	<script type="text/javascript"
+		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script type="text/javascript" th:src="@{materialize/js/materialize.min.js}"></script>
+		
+	<!-- Header -->
+	<header>
+	<nav>
+		<div class="nav-wrapper white">
+			<a th:href="@{/}" th:text="#{nav.logo.text}" class="brand-logo grey-text text-darken-3"></a>
+			<ul class="right hide-on-med-and-down" th:include="webTempl/navMenu :: nologin">
+			</ul>
+		</div>
+	</nav>
+	</header>
+
+	<div class="container">
+		<div layout:fragment="content"></div>
+	</div>
+
+	<!-- Footer -->	
+	<footer class="page-footer grey darken-3" th:fragment="nologin">
+		<div class="container">
+			<div class="row">
+				<div class="col l6 s12">
+					<h5 class="white-text" th:text="#{footer.h5.title}"></h5>
+					<p class="grey-text text-lighten-4" th:text="#{footer.text.addr}"></p>
+					<p class="grey-text text-lighten-4" th:text="#{footer.text.tel}"></p>
+					<p class="grey-text text-lighten-4" th:text="#{footer.text.email}"></p>
+				</div>
+			</div>
+		</div>
+		<div class="footer-copyright">
+			<div class="container" th:text="#{footer.copyright}"></div>
+		</div>
+	</footer>
+	
+	<!-- custom javascript -->
+	<!-- Mobile menu javascript -->
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$(".button-collapse").sideNav();
+	});
+	</script>
+</body>
+</html>

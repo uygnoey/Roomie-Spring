@@ -2,7 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorator="webTempl/web_guest_layout">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,11 +11,11 @@
 <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet" />
 <!--Import materialize.css-->
-<link type="text/css" rel="stylesheet"
-	href="materialize/css/materialize.min.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet" href="../static/materialize/css/materialize.min.css"
+	th:href="@{materialize/css/materialize.min.css}" media="screen,projection" />
 
 <!-- Import custom css -->
-<link type="text/css" rel="stylesheet" href="css/public.css" />
+<link type="text/css" rel="stylesheet" href="../static/css/public.css" th:href="@{css/public.css}" />
 <!-- Title -->
 <!-- <title th:text="#{}"></title> -->
 </head>
@@ -22,7 +23,7 @@
 	<!--Import jQuery before materialize.js-->
 	<script type="text/javascript"
 		src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="../static/materialize/js/materialize.min.js" th:src="@{materialize/js/materialize.min.js}"></script>
 		
 	<div th:replace="publicTempl/header :: nologin"></div>
 </body>
