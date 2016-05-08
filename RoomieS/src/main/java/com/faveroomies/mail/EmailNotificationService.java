@@ -74,7 +74,7 @@ public class EmailNotificationService {
 
 					Context context = new Context(locale);
 					context.setVariable("roomie", registerForm);
-					context.setVariable("code", code);
+					context.setVariable("rcode", code);
 
 					String htmlContent = templateEngine.process("mail_confirmation", context);
 
