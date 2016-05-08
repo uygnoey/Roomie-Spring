@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-	<div class="center row" th:fragment="registerform">
+	<div class="row" th:fragment="registerform">
 
 		<script type="text/javascript" th:each="err : ${#fields.errors('*')}" th:inline="javascript">
 			/*<![CDATA[*/
@@ -39,7 +39,7 @@
 							<span class="errors" th:if="${#fields.errors('*{password}')}" th:errors="*{password}"></span>
 						</div>
 					</div>
-					<div class="card-action" th:inline="text">
+					<div class="card-action center" th:inline="text">
 						<div class="inline-block">
 							<button type="submit" id="signupBtn" class="btn waves-effect waves-light" disabled="disabled" name="action">
 								<i class="material-icons left">add</i>[[#{register.input.signup}]]

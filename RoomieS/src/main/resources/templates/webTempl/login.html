@@ -9,7 +9,7 @@
 </head>
 <body>
 	<!-- Login from -->
-	<div class="row center" th:fragment="loginform">
+	<div class="row" th:fragment="loginform">
 		<script type="text/javascript" th:if="${param.error}" th:inline="javascript">
 			/*<![CDATA[*/
 				Materialize.toast(/*[[#{login.error.message}]]*/, 4000)
@@ -36,7 +36,7 @@
 								data-success="right" th:text="#{login.input.password}"></label>
 						</div>
 					</div>
-					<div class="card-action" th:inline="text">
+					<div class="card-action center" th:inline="text">
 					<div class="inline-block">
 						<button class="btn waves-effect waves-light" type="submit"
 							name="action">
