@@ -45,19 +45,19 @@ public class EmailNotificationService {
 
 	private final String MAIL_FROM = "no-reply@faveroomies.com";
 
-	public void register(RegisterForm registerForm, String regiCode, Locale locale) {
+	public void register(RegisterForm registerForm, String code, Locale locale) {
 
 		logger.info("Email sender");
 		logger.info("Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // "
-				+ registerForm.getEmail() + " code : " + regiCode + " ]");
+				+ registerForm.getEmail() + " code : " + code + " ]");
 
-		this.sendConfirmationEmail(registerForm, regiCode, locale);
+		this.sendConfirmationEmail(registerForm, code, locale);
 	}
 
-	private void sendConfirmationEmail(RegisterForm registerForm, String regiCode, Locale locale) {
+	private void sendConfirmationEmail(RegisterForm registerForm, String code, Locale locale) {
 
 		logger.info("Send Confirmation Email Roomie : " + registerForm + "roomie values [" + registerForm.getUsername()
-				+ " // " + registerForm.getEmail() + " code : " + regiCode + " ]");
+				+ " // " + registerForm.getEmail() + " code : " + code + " ]");
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			@Override
@@ -74,7 +74,7 @@ public class EmailNotificationService {
 
 					Context context = new Context(locale);
 					context.setVariable("roomie", registerForm);
-					context.setVariable("code", regiCode);
+					context.setVariable("code", code);
 
 					String htmlContent = templateEngine.process("mail_confirmation", context);
 
