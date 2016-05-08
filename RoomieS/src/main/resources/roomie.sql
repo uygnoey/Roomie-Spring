@@ -1,10 +1,4 @@
-use dev2;
--- 드랍
-
-drop database dev2;
-create database dev2;
-create database roomie;
-
+-- Drop
 -- 집
 ALTER TABLE home
 	DROP FOREIGN KEY FK_home_mNum; -- 룸메 -> 집
@@ -151,6 +145,7 @@ CREATE TABLE roomie (
     aNum      INT          NOT NULL DEFAULT 1, -- 인증코드
 	mDate     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 가입일
     mEnabled   boolean	   NOT NULL DEFAULT 1,
+    mConfirmed boolean NOT NULL DEFAULT 2,
     Constraint PK_member_mNum Primary key (mNum)
 );
 
@@ -409,3 +404,13 @@ CREATE OR replace VIEW auth as
 	select r.mUser as username, r.mPassword as password, r.mEnabled as enabled, a.aAuth as role from roomie r
     join authenticated a
     on r.aNum = a.aNum;
+    
+create or replace view member as 
+	select r.mNum, r.mUser, r.mName, r.mPhone, r.mEmail, a.aNum, a.aAuth, r.mDate, 
+		case r.mEnabled when 1 then 'Enabled' else 'Disabled' end as mEnabled, 
+        case r.mConfirmed when 1 then 'Confirmed' else 'Unconfirmed' end as mConfirmed
+    from roomie r
+    join authenticated a
+    on r.aNum = a.aNum;
+    
+insert into authenticated(aAuth) values('roomie'), ('manager'), ('admin');
