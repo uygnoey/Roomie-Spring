@@ -82,7 +82,7 @@ public class Register {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, ModelMap modelMap,
+	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, Locale locale, ModelMap modelMap,
 			HttpServletRequest req) {
 
 		logger.info("Register Process");
@@ -103,11 +103,11 @@ public class Register {
 
 			session.setAttribute(registerForm.getUsername().trim(), regiCode);
 
-			logger.info("Roomie : " + registerForm + "roomie values" + registerForm.getUsername().trim() + " // "
+			logger.info("Roomie : " + registerForm + " roomie values " + registerForm.getUsername().trim() + " // "
 					+ registerForm.getEmail().trim() + " code : " + regiCode);
 
-			//emailNotification.register(registerForm, regiCode, locale);
-
+			emailNotification.register(registerForm, regiCode, locale);
+			
 			modelMap.addAttribute("userinfo", registerForm);
 			return "register_s";
 
