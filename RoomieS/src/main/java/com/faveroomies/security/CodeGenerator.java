@@ -32,7 +32,7 @@ public class CodeGenerator {
 
 		int type = 0;
 
-		for (int i = 0; i <= 12; i++) {
+		for (int i = 0; i <= 8; i++) {
 			type = r.nextInt(3);
 
 			// Upper
