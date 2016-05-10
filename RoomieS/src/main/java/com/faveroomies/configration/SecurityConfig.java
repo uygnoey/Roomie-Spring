@@ -35,22 +35,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/").permitAll().anyRequest().permitAll().and().formLogin()
-				.loginPage("/login").defaultSuccessUrl("/").permitAll().and().logout().logoutSuccessUrl("/")
+		http.authorizeRequests().antMatchers("/", "/register/**").permitAll().anyRequest().authenticated().and()
+				.formLogin().loginPage("/login").defaultSuccessUrl("/").permitAll().and().logout().logoutSuccessUrl("/")
 				.permitAll().and().csrf().disable();
+
 	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
 		auth.jdbcAuthentication().dataSource(dataSource).passwordEncoder(passwordEncoder())
 				.usersByUsernameQuery("select username, password, enabled from auth where username = ?")
 				.authoritiesByUsernameQuery("select username, role from auth where username = ?");
+
 	}
 
 	@Bean
-	public PasswordEncoder passwordEncoder(){
+	public PasswordEncoder passwordEncoder() {
+
 		PasswordEncoder encoder = new BCryptPasswordEncoder();
 		return encoder;
+
 	}
 }
-
