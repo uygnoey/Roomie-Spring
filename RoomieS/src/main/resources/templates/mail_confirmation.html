@@ -10,11 +10,11 @@
 
 	<tbody class="grey lighten-5 grey-text text-darken-3"
 		layout:fragment="content"
-		style="color: #424242 !important; background-color: #fafafa !important; display: table-row-group; vertical-align: middle; border-color: inherit;">
+		style="width: 600px; color: #424242 !important; background-color: #fafafa !important; display: table-row-group; vertical-align: middle; border-color: inherit;">
 		<tr
 			style="display: table-row; vertical-align: inherit; border-color: inherit;">
 			<td th:inline="text"
-				style="color: #424242 !important; padding: 10px; display: table-cell; text-align: left; vertical-align: middle; border-radius: 2px; border: none;">
+				style="width: 600px; color: #424242 !important; padding: 10px; display: table-cell; text-align: left; vertical-align: middle; border-radius: 2px; border: none;">
 				<h6
 					style="color: #424242 !important; font-size: 1rem; line-height: 110%; margin: 0.5rem 0 0.4rem 0; font-weight: 400;">[[#{mail.greeting(${roomie.username})}]]</h6>
 				<span style="color: #424242 !important;">[[#{welcome.to.faveroomies}]]</span><br />
@@ -25,14 +25,14 @@
 					<span style="color: #424242 !important;">[[#{mail.confirm.message0}]]</span><br />
 					<span style="color: #424242 !important;">[[#{mail.confirm.message1(${roomie.email})}]]</span><br />
 					<b>[[#{mail.confirm.message2(${rcode})}]]</b><br /> <span
-						style="color: #424242 !important;"><b>[[#{mail.confirm.message3}]]</b>&nbsp;[[#{mail.confirm.message4}]]</span>
+						style="color: #424242 !important;"><b>[[#{mail.confirm.message3}]]</b>[[#{mail.confirm.message4}]]</span>
 				</p>
 			</td>
 		</tr>
 		<tr
 			style="display: table-row; vertical-align: inherit; border-color: inherit;">
 			<td class="center"
-				style="padding: 15px; display: table-cell; vertical-align: middle; border-radius: 2px; border: none; text-align: center;"><a
+				style="width: 600px; padding: 15px; display: table-cell; vertical-align: middle; border-radius: 2px; border: none; text-align: center;"><a
 				th:href="@{http://faveroomies.com(code=${rcode})}"
 				th:text="#{mail.confirm.button}"
 				style="text-decoration: none; color: #fff; background-color: #E53935 !important; text-align: center; letter-spacing: .5px; transition: .2s ease-out; cursor: pointer; border: none; border-radius: 2px; display: inline-block; height: 36px; line-height: 36px; outline: 0; padding: 0 2rem; text-transform: uppercase; vertical-align: middle; -webkit-tap-highlight-color: transparent;"

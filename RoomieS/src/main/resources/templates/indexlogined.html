@@ -6,9 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title th:inline="text">[[${#httpServletRequest.remoteUser}#{index.title.login}]]</title>
+<title th:text="#{index.title}"></title>
 </head>
 <body>
+
+	<div layout:fragment="content">
+		Login Success!
+		Welcome back to Fave Roomies.
+	</div>
 
 </body>
 </html>
