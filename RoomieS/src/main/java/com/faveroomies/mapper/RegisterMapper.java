@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.faveroomies.DTO.MemberImpl;
 
@@ -22,7 +23,7 @@ import com.faveroomies.DTO.MemberImpl;
  * @Since Mar 15, 2016
  *
  */
-public interface RoomieMapper {
+public interface RegisterMapper {
 
 	@Insert("insert into roomie(mUser, mEmail, mPassword) values(#{user}, #{email}, #{password})")
 	int insertRoomie(@Param("user") String user, @Param("email") String email, @Param("password") String password);
@@ -47,5 +48,8 @@ public interface RoomieMapper {
 	
 	@Select("select count(*) from member where mEmail like #{email}")
 	int countEmail(@Param("email") String email);
+	
+	@Update("update roomie set mConfirmed = 1  where mUser = #{username};")
+	int updateConfirm(@Param("username") String username);
 
 }
