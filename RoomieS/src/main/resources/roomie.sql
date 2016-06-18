@@ -1,4 +1,10 @@
--- Drop
+use dev2;
+-- 드랍
+
+drop database dev2;
+create database dev2;
+create database roomie;
+
 -- 집
 ALTER TABLE home
 	DROP FOREIGN KEY FK_home_mNum; -- 룸메 -> 집
@@ -145,7 +151,7 @@ CREATE TABLE roomie (
     aNum      INT          NOT NULL DEFAULT 1, -- 인증코드
 	mDate     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP, -- 가입일
     mEnabled   boolean	   NOT NULL DEFAULT 1,
-    mConfirmed boolean NOT NULL DEFAULT 2,
+    mConfirmed boolean NOT NULL DEFAULT 0,
     Constraint PK_member_mNum Primary key (mNum)
 );
 
@@ -166,15 +172,16 @@ ALTER TABLE roomie
 
 -- 집
 CREATE TABLE home (
-	hNum     INT          NOT NULL AUTO_INCREMENT, -- 집번호
-	hName    VARCHAR(30)  NOT NULL, -- 집이름
-	mNum     INT          NOT NULL, -- 주인
-	hRoom    INT          NOT NULL, -- 방 수
-	hAddrSt1 VARCHAR(300) NOT NULL, -- 주소1
-	hAddrSt2 VARCHAR(300) NULL,     -- 주소2
-	hCity    VARCHAR(100) NOT NULL, -- 도시
-	hState   VARCHAR(100) NOT NULL, -- 주/도
-	hZipcode VARCHAR(10)  NOT NULL, -- 우편번호
+	hNum     		INT          	NOT NULL AUTO_INCREMENT, -- 집번호
+	hName    		VARCHAR(30)  	NOT NULL, -- 집이름
+	mNum     		INT          	NOT NULL, -- 주인
+	hRoomcnt 		INT          	NOT NULL, -- 방 수
+	hNeighborhood	VARCHAR(1000)	NOT NULL, -- 동네
+	hAddrSt1 		VARCHAR(300) 	NOT NULL, -- 주소1
+	hAddrSt2 		VARCHAR(300) 	NULL,     -- 주소2
+	hCity    		VARCHAR(100) 	NOT NULL, -- 도시
+	hState   		VARCHAR(100) 	NOT NULL, -- 주/도
+	hZipcode 		VARCHAR(10)  	NOT NULL, -- 우편번호
 	Constraint PK_home_hNum Primary key (hNum)
 );
 
@@ -217,6 +224,7 @@ CREATE TABLE room (
 	hNum     INT          NOT NULL, -- 집번호
 	rName    VARCHAR(100) NOT NULL, -- 방이름
 	rMaster  BOOLEAN      NOT NULL DEFAULT 0, -- 마스터룸
+    rEmpty	 BOOLEAN	  NOT NULL DEFAULT 0, -- 빈 방 여부
 	rDeposit INT          NOT NULL DEFAULT 0, -- 방계약금
 	rRental  INT          NOT NULL DEFAULT 0, -- 방렌트비
     CONSTRAINT PK_room_rNum PRIMARY KEY (rNum)
@@ -400,17 +408,32 @@ ALTER TABLE agreement
 			cNum -- 계약번호
 		);
         
+-- 인증 뷰
 CREATE OR replace VIEW auth as
 	select r.mUser as username, r.mPassword as password, r.mEnabled as enabled, a.aAuth as role from roomie r
     join authenticated a
     on r.aNum = a.aNum;
     
+-- 회원 정보 검색리스트
 create or replace view member as 
 	select r.mNum, r.mUser, r.mName, r.mPhone, r.mEmail, a.aNum, a.aAuth, r.mDate, 
 		case r.mEnabled when 1 then 'Enabled' else 'Disabled' end as mEnabled, 
-        case r.mConfirmed when 1 then 'Confirmed' else 'Unconfirmed' end as mConfirmed
+        case r.mConfirmed when true then 'Confirmed' else 'Unconfirmed' end as mConfirmed
     from roomie r
     join authenticated a
     on r.aNum = a.aNum;
+
+-- 빈 방 검색 리스트
+create or replace view emptyRoom as
+select h.hNum, h.hName, h.hAddrSt1, h.hAddrSt2, h.hCity, h.hState, h.hZipcode, m.mNum, m.mName, m.mPhone, m.mEmail, 
+	r.rNum, r.rName, r.rRental, r.rDeposit, r.rMaster, avg(hr.hrRate) as hrRate from room r
+join home h
+on r.hNum = h.hNum
+join roomie m
+on h.mNum = m.mNum
+join homeRate hr
+on h.hNum = hr.hNum
+where r.rEmpty = true
+group by h.hNum;
     
 insert into authenticated(aAuth) values('roomie'), ('manager'), ('admin');
