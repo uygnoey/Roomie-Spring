@@ -107,13 +107,13 @@ public interface Roomie {
 	/**
 	 * @return the enabled
 	 */
-	public boolean isEnabled();
+	public boolean ismEnabled();
 
 	/**
 	 * @param enabled
 	 *            the enabled to set
 	 */
-	public void setEnabled(boolean mEnabled);
+	public void setmEnabled(boolean mEnabled);
 	
 	/**
 	 * @return the mConfirmed

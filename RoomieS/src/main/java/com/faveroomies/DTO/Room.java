@@ -81,4 +81,16 @@ public interface Room {
 	 *            the rMaster to set
 	 */
 	public void setrMaster(boolean rMaster);
+
+	/**
+	 * @return the rEmpty
+	 */
+	public boolean isrEmpty();
+
+	/**
+	 * @param rEmpty
+	 *            the rEmpty to set
+	 */
+	public void setrEmpty(boolean rEmpty);
+
 }

@@ -61,6 +61,18 @@ public interface Home {
 	public void sethName(String hName);
 
 	/**
+	 * 
+	 * @return the hNeighborhood
+	 */
+	public String gethNeighborhood();
+
+	/**
+	 * @param hNeighborhood
+	 *            the hNeighborhood to set
+	 */
+	public void sethNeighborhood(String hNeighborhood);
+
+	/**
 	 * @return the hAddrSt1
 	 */
 	public String gethAddrSt1();
