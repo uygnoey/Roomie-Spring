@@ -10,11 +10,16 @@
 <title th:text="#{index.title}"></title>
 </head>
 <body>
-
 	<div layout:fragment="content">
-		Login Success!<br />
-		Welcome back to Fave Roomies.
+		<ul class="collapsible popout" data-collapsible="expandable">
+			<li th:ecah="list : emptyRooms">
+				<div class="collapsible-header" th:inline="text">
+					<span class="left"><i class="material-icons">home</i>&nbsp;[[${list.hName}]] - [[${list.hCity}]], [[#{list.hState}]]&nbsp;[[${list.Zipcode}]]</span>
+					<span class="rigth"></span>
+				</div>
+				<div class="collapsible-body"><p>test</p></div>
+			</li>
+		</ul>
 	</div>
-
 </body>
 </html>

@@ -18,30 +18,30 @@
 		
 		<div class="col s12 m6 offset-m3 l6 offset-l3">
 			<div class="card">
-				<form th:action="@{/register}" th:object="${registerForm}" id="signupForm" name="signupForm" method="post">
+				<form th:action="@{/register}" th:object="${roomieImpl}" id="signupForm" name="signupForm" method="post">
 					<div class="card-content">
 						<sapn class="card-title" th:text="#{register.card.title}"></sapn>
 						<div class="input-field">
-							<input type="text" th:field="*{username}" name="username" id="username" length="30" class="validate" />
+							<input type="text" th:field="*{mUser}" name="username" id="username" length="30" class="validate" />
 							<label for="username" th:text="#{register.input.username}"></label>
 							<span id="usernameOverlap" class="errors"></span>
-							<span class="errors" th:if="${#fields.errors('*{username}')}" th:errors="*{username}"></span>
+							<span class="errors" th:if="${#fields.errors('*{mUser}')}" th:errors="*{mUser}"></span>
 						</div>
 						<div class="input-field">
-							<input type="email" th:field="*{email}" id="email" class="validate" name="email" />
+							<input type="email" th:field="*{mEmail}" id="email" class="validate" name="email" />
 							<label for="email" th:text="#{register.input.email}"></label>
 							<span id="emailOverlap" class="errors"></span>
-							<span class="errors" th:if="${#fields.errors('*{email}')}" th:errors="*{email}"></span>
+							<span class="errors" th:if="${#fields.errors('*{mEmail}')}" th:errors="*{mEmail}"></span>
 						</div>
 						<div class="input-field">
-							<input type="password" th:field="*{password}" name="password" id="password" class="validate" />
+							<input type="password" th:field="*{mPassword}" name="password" id="password" class="validate" />
 							<label for="password" th:text="#{register.input.password}"></label>
-							<span class="errors" th:if="${#fields.errors('*{password}')}" th:errors="*{password}"></span>
+							<span class="errors" th:if="${#fields.errors('*{mPassword}')}" th:errors="*{mPassword}"></span>
 						</div>
 					</div>
 					<div class="card-action center" th:inline="text">
 						<div class="inline-block">
-							<button type="submit" id="signupBtn" class="btn waves-effect waves-light" disabled="disabled" name="action">
+							<button type="submit" id="signupBtn" class="btn waves-effect waves-light black" disabled="disabled" name="action">
 								<i class="material-icons left">add</i>[[#{register.input.signup}]]
 							</button>
 						</div>
@@ -56,7 +56,7 @@
 				var activation= new Array(false, false, false);
 				console.log(activation[0] + " " + activation[1] + " " + activation[2]);
 				
-				if ($('#username').val() != "") {
+				if ($('#username').val() != "" && $('#username').val().lengh >= 4) {
 					$('#username').keyup();
 				};
 				
