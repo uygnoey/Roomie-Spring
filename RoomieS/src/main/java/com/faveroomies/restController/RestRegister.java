@@ -17,7 +17,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.faveroomies.mapper.RoomieMapper;
+import com.faveroomies.mapper.RegisterMapper;
 
 /**
  * 
@@ -32,7 +32,7 @@ public class RestRegister {
 	private Logger logger = LoggerFactory.getLogger(RestRegister.class);
 
 	@Autowired
-	private RoomieMapper roomieMapper;
+	private RegisterMapper roomieMapper;
 
 	@RequestMapping(value = "/register/overlap", params = "username")
 	public boolean usernameOverlap(@Param("username") String username) {

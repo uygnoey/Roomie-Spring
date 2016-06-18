@@ -22,12 +22,13 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.faveroomies.form.RegisterForm;
+import com.faveroomies.DTO.RoomieImpl;
 import com.faveroomies.mail.EmailNotificationService;
-import com.faveroomies.mapper.RoomieMapper;
+import com.faveroomies.mapper.RegisterMapper;
 import com.faveroomies.security.CodeGenerator;
 import com.faveroomies.security.Encrypt;
 
@@ -38,15 +39,15 @@ import com.faveroomies.security.Encrypt;
  *
  */
 @Controller
-@MapperScan("life.theroomie.mapper")
+@MapperScan("com.faveroomies.mapper")
 public class Register {
 
 	@Autowired
-	private RoomieMapper roomieMapper;
+	private RegisterMapper registerMapper;
 
 	@Autowired
 	private EmailNotificationService emailNotification;
-	
+
 	private CodeGenerator codeGenerator = new CodeGenerator();
 	private Encrypt encrypt = new Encrypt();
 
@@ -62,7 +63,7 @@ public class Register {
 	 * @return {@link String}
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public String register(RegisterForm registerForm, Model model) {
+	public String register(RoomieImpl roomie, Model model) {
 
 		logger.info("Register page");
 
@@ -82,38 +83,70 @@ public class Register {
 	 * @return
 	 */
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
-	public String regProcess(@Validated RegisterForm registerForm, BindingResult bindingResult, Locale locale, ModelMap modelMap,
-			HttpServletRequest req) {
+	public String regProcess(@Validated RoomieImpl roomie, BindingResult bindingResult, Locale locale,
+			ModelMap modelMap, HttpServletRequest req) {
 
 		logger.info("Register Process");
-		logger.info(
-				registerForm.getUsername() + " // " + registerForm.getEmail() + " // " + registerForm.getPassword());
+		logger.info(roomie.getmUser() + " // " + roomie.getmEmail() + " // " + encrypt.encrypt(roomie.getmPassword()));
 
 		HttpSession session = req.getSession();
 
 		logger.info(session.getAttributeNames().toString());
-		
+
 		if (bindingResult.hasErrors()) {
-            return "register";
-        }else if (roomieMapper.insertRoomie(registerForm.getUsername().trim(), registerForm.getEmail().trim(),
-			
-			encrypt.encrypt(registerForm.getPassword().trim())) > 0) {
+			return "register";
+		} else if (registerMapper.insertRoomie(roomie.getmUser().trim(), roomie.getmEmail().trim(),
+
+				encrypt.encrypt(roomie.getmPassword().trim())) > 0) {
 
 			String regiCode = codeGenerator.generator();
 
-			session.setAttribute(registerForm.getUsername().trim(), regiCode);
+			session.setAttribute(roomie.getmUser().trim(), regiCode);
 
-			logger.info("Roomie : " + registerForm + " roomie values " + registerForm.getUsername().trim() + " // "
-					+ registerForm.getEmail().trim() + " code : " + regiCode);
+			logger.info("Roomie : " + roomie + " roomie values " + roomie.getmUser().trim() + " // "
+					+ roomie.getmEmail().trim() + " code : " + regiCode);
 
-			emailNotification.register(registerForm, regiCode, locale);
-			
-			modelMap.addAttribute("userinfo", registerForm);
+			emailNotification.register(roomie, regiCode, locale);
+
+			modelMap.addAttribute("userinfo", roomie);
 			return "register_s";
 
 		} else {
 			return "register";
 		}
+
+	}
+
+	/**
+	 * 
+	 * 아이디 회원가입 후 이메일 인증 UR 인증 성공 시 성공 페이지 띄우고 로그인 페이지로 리다이렉트<br>
+	 * 실패시 인증 실패 메세지 표시와 함께 인증코드 입력란 표시 및 인증코드 재발송
+	 * 
+	 * @author YeonGyu Yang
+	 * @Since Jun 18, 2016
+	 *
+	 * @param code
+	 * @param id
+	 * @param req
+	 * @return
+	 */
+	@RequestMapping(value = "/confirm/{code}/{id}", method = RequestMethod.GET)
+	public String confirm(@PathVariable("code") String code, @PathVariable("id") String id, HttpServletRequest req) {
+
+		logger.info("Confirm Page");
+
+		HttpSession session = req.getSession();
+
+		String sessionCode = session.getAttribute(id).toString();
+
+		if (sessionCode == code) {
+			
+			registerMapper.updateConfirm(id);
+
+			return "confirm_s";
+
+		} else
+			return "confirm_f";
 
 	}
 
