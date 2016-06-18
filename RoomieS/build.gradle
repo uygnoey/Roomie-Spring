@@ -4,27 +4,31 @@ buildscript {
 	}
 	repositories {
 		mavenCentral()
+		jcenter()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+		classpath('org.springframework:springloaded:1.2.6.RELEASE')
 	}
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot' 
-apply plugin: 'war'
+//apply plugin: 'war'
+apply plugin: 'idea'
 
 
-war {
+/* war {
 	baseName = 'roomie'
 	version = '1.0.0-SNAPSHOT'
-}
+} */
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
 	mavenCentral()
+	jcenter()
 }
 
 configurations {
@@ -46,7 +50,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-websocket')
     compile('org.springframework.boot:spring-boot-starter-actuator')
-    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.0.0')
+    compile('org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1')
     compile('com.sun.mail:javax.mail')
 	runtime('mysql:mysql-connector-java')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
@@ -63,4 +67,11 @@ eclipse {
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.9'
+}
+
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
 }
