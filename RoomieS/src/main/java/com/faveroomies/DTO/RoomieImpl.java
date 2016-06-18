@@ -8,7 +8,11 @@
  */
 package com.faveroomies.DTO;
 
-import com.faveroomies.security.Encrypt;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Email;
 
 /**
  * <p>
@@ -30,10 +34,27 @@ import com.faveroomies.security.Encrypt;
 public class RoomieImpl implements Roomie {
 
 	private int mNum, aNum;
-	private String mUser, mEmail, mPassword, mName, mPhone, mDate;
-	private boolean mEnabled, mConfirmed;
 
-	private Encrypt encryptSth = new Encrypt();
+	@Size(min = 4, max = 30)
+	@NotNull
+	private String mUser;
+
+	@NotNull
+	@Email
+	private String mEmail;
+
+	@NotNull
+	@Size(min = 6, message = "{password.length.error}")
+	@Pattern.List({ @Pattern(regexp = "(?=.*[0-9]).+", message = "{password.num.error}"),
+			@Pattern(regexp = "(?=.*[a-z]).+", message = "{password.lower.error}"),
+			@Pattern(regexp = "(?=.*[A-Z]).+", message = "{password.upper.error}"),
+			@Pattern(regexp = "(?=.*[!@#$%^&*+=?-_()/\"\\.,<>~`;:]).+", message = "{password.special.error}"),
+			@Pattern(regexp = "(?=\\S+$).+", message = "{password.space.error") })
+	private String mPassword;
+	private String mName;
+	private String mPhone;
+	private String mDate;
+	private boolean mEnabled, mConfirmed;
 
 	/**
 	 * @return the mNum
@@ -137,7 +158,7 @@ public class RoomieImpl implements Roomie {
 	 *            the mPassword to set
 	 */
 	public void setmPassword(String mPassword) {
-		this.mPassword = encryptSth.encrypt(mPassword);
+		this.mPassword = mPassword;
 	}
 
 	/**
@@ -158,7 +179,7 @@ public class RoomieImpl implements Roomie {
 	/**
 	 * @return the enabled
 	 */
-	public boolean isEnabled() {
+	public boolean ismEnabled() {
 		return mEnabled;
 	}
 
@@ -166,7 +187,7 @@ public class RoomieImpl implements Roomie {
 	 * @param enabled
 	 *            the enabled to set
 	 */
-	public void setEnabled(boolean mEnabled) {
+	public void setmEnabled(boolean mEnabled) {
 		this.mEnabled = mEnabled;
 	}
 

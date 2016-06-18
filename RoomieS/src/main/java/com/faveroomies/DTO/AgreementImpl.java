@@ -20,7 +20,7 @@ package com.faveroomies.DTO;
  * @Since Mar 16, 2016
  *
  */
-public class AgreementImpl implements Agreement{
+public class AgreementImpl implements Agreement {
 
 	private int aNum, cNum;
 	private String aAgreement, aDate;

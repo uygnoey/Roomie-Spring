@@ -258,7 +258,7 @@ public class MemberImpl implements Roomie, Authenticated {
 	 * @see com.faveroomies.DTO.Roomie#isEnabled()
 	 */
 	@Override
-	public boolean isEnabled() {
+	public boolean ismEnabled() {
 		return mEnabled;
 	}
 
@@ -270,7 +270,7 @@ public class MemberImpl implements Roomie, Authenticated {
 	 * @see com.faveroomies.DTO.Roomie#setEnabled(boolean)
 	 */
 	@Override
-	public void setEnabled(boolean mEnabled) {
+	public void setmEnabled(boolean mEnabled) {
 		this.mEnabled = mEnabled;
 	}
 	

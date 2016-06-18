@@ -26,7 +26,7 @@ public class RoomImpl implements Room {
 
 	private int rNum, hNum, rDeposit, rRental;
 	private String rName;
-	private boolean rMaster;
+	private boolean rMaster, rEmpty;
 
 	/**
 	 * @return the rNum
@@ -128,6 +128,21 @@ public class RoomImpl implements Room {
 	@Override
 	public void setrMaster(boolean rMaster) {
 		this.rMaster = rMaster;
+	}
+
+	/**
+	 * @return the rEmpty
+	 */
+	public boolean isrEmpty() {
+		return rEmpty;
+	}
+
+	/**
+	 * @param rEmpty
+	 *            the rEmpty to set
+	 */
+	public void setrEmpty(boolean rEmpty) {
+		this.rEmpty = rEmpty;
 	}
 
 }
