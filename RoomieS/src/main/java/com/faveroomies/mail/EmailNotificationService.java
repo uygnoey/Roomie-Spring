@@ -23,7 +23,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 
-import com.faveroomies.form.RegisterForm;
+import com.faveroomies.DTO.RoomieImpl;
 
 /**
  * 
@@ -45,19 +45,19 @@ public class EmailNotificationService {
 
 	private final String MAIL_FROM = "no-reply@faveroomies.com";
 
-	public void register(RegisterForm registerForm, String code, Locale locale) {
+	public void register(RoomieImpl roomie, String code, Locale locale) {
 
 		logger.info("Email sender");
-		logger.info("Roomie : " + registerForm + "roomie values [" + registerForm.getUsername() + " // "
-				+ registerForm.getEmail() + " code : " + code + " ]");
+		logger.info("Roomie : " + roomie + "roomie values [" + roomie.getmUser() + " // "
+				+ roomie.getmEmail() + " code : " + code + " ]");
 
-		this.sendConfirmationEmail(registerForm, code, locale);
+		this.sendConfirmationEmail(roomie, code, locale);
 	}
 
-	private void sendConfirmationEmail(RegisterForm registerForm, String code, Locale locale) {
+	private void sendConfirmationEmail(RoomieImpl roomie, String code, Locale locale) {
 
-		logger.info("Send Confirmation Email Roomie : " + registerForm + "roomie values [" + registerForm.getUsername()
-				+ " // " + registerForm.getEmail() + " code : " + code + " ]");
+		logger.info("Send Confirmation Email Roomie : " + roomie + "roomie values [" + roomie.getmUser()
+				+ " // " + roomie.getmEmail() + " code : " + code + " ]");
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 
 			@Override
@@ -69,12 +69,13 @@ public class EmailNotificationService {
 					MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 
 					
-					message.setTo(registerForm.getEmail());
+					message.setTo(roomie.getmEmail());
 					message.setFrom(MAIL_FROM);
 
 					Context context = new Context(locale);
-					context.setVariable("roomie", registerForm);
+					context.setVariable("roomie", roomie);
 					context.setVariable("rcode", code);
+					context.setVariable("confirmLink", "http://faveroomies.com/confirm/"+code+"/"+roomie.getmUser());
 
 					String htmlContent = templateEngine.process("mail_confirmation", context);
 
